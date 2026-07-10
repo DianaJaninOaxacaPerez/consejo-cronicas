@@ -6,35 +6,31 @@ use App\Models\Configuracion;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         $this->configureDefaults();
-        View::composer(['layouts.public-nav', 'layouts.public-footer', 'layouts.modulo', 'admin.layout'], function ($view) {
-        $view->with('config', Configuracion::find(1));
-});
 
+        View::composer(['layouts.public-nav', 'layouts.public-footer', 'layouts.modulo', 'admin.layout'], function ($view) {
+            $view->with('config', Configuracion::find(1));
+        });
+
+        if ($this->app->isProduction()) {
+            URL::forceScheme('https');
+        }
     }
 
-    /**
-     * Configure default behaviors for production-ready applications.
-     */
     protected function configureDefaults(): void
     {
         Date::use(CarbonImmutable::class);
