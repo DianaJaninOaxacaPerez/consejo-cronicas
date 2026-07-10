@@ -76,6 +76,11 @@
             <i class="fa-solid fa-microphone-lines"></i> Entrevistas
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('perfiles') }}">
+          <i class="fa-solid fa-users"></i> Perfiles
+          </a>
+        </li>
       </ul>
 
     </div>
