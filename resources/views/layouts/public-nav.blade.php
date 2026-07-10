@@ -20,6 +20,7 @@
           <li class="nav-item"><a class="nav-link" href="{{ route('eventos') }}">Eventos</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ route('noticias') }}">Noticias</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ route('entrevistas') }}">Entrevistas</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('perfiles') }}">Perfiles</a></li>
         </ul>
 
         <div class="menu-title d-lg-none">CRÓNICA HUEJUTLENSE</div>

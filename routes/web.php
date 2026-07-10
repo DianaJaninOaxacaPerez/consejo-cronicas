@@ -7,6 +7,8 @@ use App\Models\Noticia;
 use App\Models\Entrevista;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CronicaController;
+use App\Models\Cronista;
+
 /*
 |--------------------------------------------------------------------------
 | Rutas públicas (front - sitio del Consejo)
@@ -45,6 +47,15 @@ Route::get('/entrevistas/{id}', function ($id) {
     $entrevista = Entrevista::findOrFail($id);
     return view('ver_entrevista', compact('entrevista'));
 })->name('entrevistas.show');
+Route::get('/perfiles', function () {
+    $cronistas = Cronista::orderBy('id_cronista')->get();
+    return view('perfiles', compact('cronistas'));
+})->name('perfiles');
+
+Route::get('/perfiles/{id}', function ($id) {
+    $cronista = Cronista::findOrFail($id);
+    return view('ver_perfil', compact('cronista'));
+})->name('perfiles.show');
 
 
 
@@ -73,7 +84,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('entrevistas', \App\Http\Controllers\Admin\EntrevistaController::class);
         Route::get('configuracion', [\App\Http\Controllers\Admin\ConfiguracionController::class, 'edit'])->name('configuracion.edit');
         Route::post('configuracion', [\App\Http\Controllers\Admin\ConfiguracionController::class, 'update'])->name('configuracion.update');
-
+        Route::resource('cronistas', \App\Http\Controllers\Admin\CronistaController::class)->parameters(['cronistas' => 'cronista']);
 
     });
 

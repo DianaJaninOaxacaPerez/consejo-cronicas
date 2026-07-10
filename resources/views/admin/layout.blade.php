@@ -32,6 +32,7 @@
       <li><a href="{{ route('admin.noticias.index') }}" class="{{ request()->routeIs('admin.noticias.*') ? 'active' : '' }}"><i class="fa-solid fa-newspaper"></i> Noticias</a></li>
       <li><a href="{{ route('admin.entrevistas.index') }}" class="{{ request()->routeIs('admin.entrevistas.*') ? 'active' : '' }}"><i class="fa-solid fa-microphone-lines"></i> Entrevistas</a></li>
       <li><a href="{{ route('admin.configuracion.edit') }}" class="{{ request()->routeIs('admin.configuracion.*') ? 'active' : '' }}"><i class="fa-solid fa-gear"></i> Configuración</a></li>
+      <li><a href="{{ route('admin.cronistas.index') }}" class="{{ request()->routeIs('admin.cronistas.*') ? 'active' : '' }}"><i class="fa-solid fa-users"></i> Perfiles</a></li>
     </ul>
 
     <form method="POST" action="{{ route('logout') }}" class="logout-form">
