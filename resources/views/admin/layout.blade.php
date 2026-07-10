@@ -15,16 +15,12 @@
 
   <aside class="admin-sidebar">
     <div class="logo">
-      <img src="{{ asset('img/' . $config->logo) }}" alt="Logo">
+      <a href="{{ route('dashboard') }}">
+        <img src="{{ asset('img/' . $config->logo) }}" alt="Logo">
+      </a>
     </div>
 
     <ul class="admin-menu">
-
-
-
-
-    
-     
       <li><a href="{{ route('admin.cronicas.index') }}" class="{{ request()->routeIs('admin.cronicas.*') ? 'active' : '' }}"><i class="fa-solid fa-scroll"></i> Crónicas</a></li>
       <li><a href="{{ route('admin.historias.index') }}" class="{{ request()->routeIs('admin.historias.*') ? 'active' : '' }}"><i class="fa-solid fa-landmark"></i> Historias</a></li>
       <li><a href="{{ route('admin.galeria.index') }}" class="{{ request()->routeIs('admin.galeria.*') ? 'active' : '' }}"><i class="fa-solid fa-images"></i> Galería</a></li>
@@ -51,13 +47,6 @@
         {{ auth()->user()->name }}
       </span>
     </div>
-
-
-  <div class="logo">
-  <a href="{{ route('dashboard') }}">
-    <img src="{{ asset('img/' . $config->logo) }}" alt="Logo">
-  </a>
-  </div>
 
     @if(session('success'))
       <div class="admin-alert admin-alert-success">{{ session('success') }}</div>
