@@ -1,0 +1,152 @@
+.panel-opciones{
+    width: 100%;
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.panel-opciones h2{
+    font-size: 2.5rem;
+    color: var(--color1);
+    margin-bottom: 50px;
+    font-family:'Playfair Display', serif;
+    font-style: italic;
+}
+
+.opciones-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    gap: 30px;
+}
+
+.opcion-card{
+    background: white;
+    border-radius: 25px;
+    padding: 40px 25px;
+    text-decoration: none;
+    border: 2px solid rgba(47,155,216,.2);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+
+    transition: .4s;
+
+    color: var(--text);
+}
+
+.opcion-card:hover{
+    transform: translateY(-10px);
+
+    border-color: var(--color3);
+
+    box-shadow: 0 15px 30px rgba(111,184,224,.2);
+}
+
+.icono{
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.opcion-card h3{
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--color1);
+
+    font-family:'Playfair Display', serif;
+    font-style: italic;
+}
+
+.opcion-card p{
+    color:#52626D;
+    line-height:1.7;
+}
+.usuario-sesion{
+    font-family: 'Playfair Display', serif;
+  font-style: italic;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* ══════════════════════════════
+   HEADER DEL PANEL DE ADMIN
+   (aquí el <nav> solo tiene id="navbar", no class="navbar",
+   así que la regla .navbar#navbar de inicio.css no le aplicaba
+   y se quedaba transparente sobre el carrusel de fotos)
+══════════════════════════════ */
+
+/* Quitamos el carrusel de fotos a pantalla completa: en el panel
+   solo queremos la barra sólida, no el hero público */
+header {
+  height: auto;
+  min-height: 0;
+  background: none !important;
+  animation: none !important;
+}
+
+header .hero {
+  display: none;
+}
+
+header #navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  padding: 14px 3%;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(207, 233, 251, .92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+header #navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+header #navbar .logo img {
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+}
+
+header #navbar .logo span {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: .5px;
+  color: var(--color1);
+  white-space: nowrap;
+}
+
+header #navbar .nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+header #navbar .usuario-sesion {
+  color: var(--color1);
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  header #navbar {
+    justify-content: center;
+    text-align: center;
+    padding: 14px 4%;
+  }
+  header #navbar .logo img {
+    width: 110px;
+  }
+  header #navbar .nav-actions {
+    justify-content: center;
+    width: 100%;
+  }
+}

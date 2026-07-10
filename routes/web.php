@@ -1,11 +1,82 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+use App\Models\Historia;
+use App\Models\Galeria;
+use App\Models\Evento;
+use App\Models\Noticia;
+use App\Models\Entrevista;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\CronicaController;
+/*
+|--------------------------------------------------------------------------
+| Rutas públicas (front - sitio del Consejo)
+|--------------------------------------------------------------------------
+*/
+Route::view('/', 'inicio')->name('inicio');
+Route::get('/historia', function () {
+    $historias = Historia::orderByDesc('fecha_creacion')->get();
+    return view('historia', compact('historias'));
+})->name('historia');
+Route::get('/cronicas', function () {
+    $cronicas = \App\Models\Cronica::orderByDesc('id_cronica')->get();
+    return view('cronicas', compact('cronicas'));
+})->name('cronicas');
+Route::get('/galeria', function () {
+    $imagenes = Galeria::orderByDesc('id_galeria')->get();
+    return view('galeria', compact('imagenes'));
+})->name('galeria');
+Route::get('/eventos', function () {
+    $eventos = Evento::orderByDesc('id_evento')->get();
+    return view('eventos', compact('eventos'));
+})->name('eventos');
+Route::get('/noticias', function () {
+    $noticias = Noticia::orderByDesc('id_noticia')->get();
+    return view('noticias', compact('noticias'));
+})->name('noticias');
+Route::get('/noticias/{id}', function ($id) {
+    $noticia = Noticia::findOrFail($id);
+    return view('ver_noticia', compact('noticia'));
+})->name('noticias.show');
+Route::get('/entrevistas', function () {
+    $entrevistas = Entrevista::orderByDesc('id')->get();
+    return view('entrevistas', compact('entrevistas'));
+})->name('entrevistas');
+Route::get('/entrevistas/{id}', function ($id) {
+    $entrevista = Entrevista::findOrFail($id);
+    return view('ver_entrevista', compact('entrevista'));
+})->name('entrevistas.show');
 
-Route::view('/', 'welcome')->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+
+/*Rutas administrativas (back - Livewire Starter Kit*/
+/* Login */
+Route::get('/login', [AuthController::class, 'mostrarLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+/* Rutas administrativas */
+Route::middleware(['auth'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
-});
 
+
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('cronicas', CronicaController::class)->parameters([
+            'cronicas' => 'cronica'
+        ]);
+        Route::resource('historias', \App\Http\Controllers\Admin\HistoriaController::class)->parameters([
+            'historias' => 'historia'
+        ]);
+        Route::resource('galeria', \App\Http\Controllers\Admin\GaleriaController::class);
+        Route::resource('eventos', \App\Http\Controllers\Admin\EventoController::class);
+        Route::resource('noticias', \App\Http\Controllers\Admin\NoticiaController::class);
+        Route::delete('noticias-imagenes/{imagene}', [\App\Http\Controllers\Admin\NoticiaController::class, 'destroyImagen'])->name('noticias.imagenes.destroy');
+        Route::resource('entrevistas', \App\Http\Controllers\Admin\EntrevistaController::class);
+        Route::get('configuracion', [\App\Http\Controllers\Admin\ConfiguracionController::class, 'edit'])->name('configuracion.edit');
+        Route::post('configuracion', [\App\Http\Controllers\Admin\ConfiguracionController::class, 'update'])->name('configuracion.update');
+
+
+    });
+
+
+});
 require __DIR__.'/settings.php';

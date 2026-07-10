@@ -1,0 +1,179 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+
+    background:#F5FAFD;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+
+    padding:20px;
+}
+
+.upload-container{
+    width:100%;
+    max-width:700px;
+}
+
+.upload-card{
+    background:white;
+
+    padding:45px;
+
+    border-radius:30px;
+
+    box-shadow:0 10px 30px rgba(28,39,48,.08);
+
+    border:1px solid #E3F1FA;
+}
+
+.upload-card h1{
+    font-family:'Playfair Display', serif;
+    font-style: italic;
+    color:#1C2730;
+
+    margin-bottom:10px;
+
+    font-size:2.5rem;
+}
+
+.upload-card p{
+    color:#33404A;
+
+    margin-bottom:35px;
+
+    line-height:1.7;
+}
+
+.input-group{
+    margin-bottom:25px;
+}
+
+.input-group label{
+    display:block;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+    color:#1C2730;
+}
+
+.input-group input,
+.input-group textarea{
+    width:100%;
+
+    padding:15px;
+
+    border:1px solid #E3F1FA;
+
+    border-radius:15px;
+
+    outline:none;
+
+    font-family:'Poppins', sans-serif;
+
+    background:#F5FAFD;
+
+    transition:.3s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus{
+    border-color:#2F9BD8;
+
+    background:white;
+}
+
+textarea{
+    resize:none;
+
+    height:140px;
+}
+
+input[type="file"]{
+    background:white;
+
+    cursor:pointer;
+}
+
+.btn-upload{
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:#1C2730;
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn-upload:hover{
+    background:#33404A;
+}
+
+.btn-volver-fixed{
+    position: fixed;
+
+    top: 25px;
+
+    left: 25px;
+
+    background: #E3F1FA;
+
+    color: #33404A;
+
+    text-decoration: none;
+
+    padding: 12px 22px;
+
+    border-radius: 50px;
+
+    font-weight: 700;
+
+    border: 1px solid #CFE9FB;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+
+    transition: all .25s ease;
+
+    z-index: 9999;
+}
+
+/* En páginas que además tienen el sidebar (ej. editar_noticia.php,
+   que carga catalogo.css), el botón se movía encima del logo.
+   Aquí lo mandamos a la derecha SOLO en esos casos, sin tocar
+   el comportamiento en los módulos que usan subir.css solos
+   (sin sidebar), donde la izquierda está bien. */
+body:has(#sidebar) .btn-volver-fixed{
+    left: auto;
+    right: 25px;
+}
+
+.btn-volver-fixed:hover{
+    background: #2F9BD8;
+    color: #FFFFFF;
+    border-color: #2F9BD8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(47,155,216,.28);
+}
