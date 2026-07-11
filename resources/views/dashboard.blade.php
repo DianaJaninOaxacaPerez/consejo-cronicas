@@ -54,7 +54,6 @@
     </a>
 </div>
 @endsection
-
 @push('styles')
 <style>
 .dashboard-cards {
@@ -76,7 +75,7 @@
 .dashboard-card:hover {
     box-shadow: 0 10px 26px rgba(28,39,48,.14);
     transform: translateY(-4px);
-    border-color: #cfe2ff;
+    border-color: var(--a-color3);
 }
 .dashboard-card-img {
     background: linear-gradient(160deg, var(--a-color4), #fff);
@@ -85,11 +84,16 @@
     align-items: center;
     justify-content: center;
     padding: 14px;
+    overflow: hidden;
 }
 .dashboard-card-img img {
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
+    transition: transform .35s ease;
+}
+.dashboard-card:hover .dashboard-card-img img {
+    transform: scale(1.12);
 }
 .dashboard-card h3 {
     font-family: 'Playfair Display', serif;
@@ -98,10 +102,18 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    transition: color .2s ease;
 }
 .dashboard-card h3 i {
     color: var(--a-color3);
     font-size: 1rem;
+    transition: color .2s ease;
+}
+.dashboard-card:hover h3 {
+    color: var(--a-color3);
+}
+.dashboard-card:hover h3 i {
+    color: var(--a-color2);
 }
 .dashboard-card p {
     margin: 0 18px 18px;
