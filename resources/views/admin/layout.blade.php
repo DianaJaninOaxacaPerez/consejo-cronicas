@@ -21,6 +21,7 @@
     </div>
 
     <ul class="admin-menu">
+      <li><a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
       <li><a href="{{ route('admin.cronicas.index') }}" class="{{ request()->routeIs('admin.cronicas.*') ? 'active' : '' }}"><i class="fa-solid fa-scroll"></i> Crónicas</a></li>
       <li><a href="{{ route('admin.historias.index') }}" class="{{ request()->routeIs('admin.historias.*') ? 'active' : '' }}"><i class="fa-solid fa-landmark"></i> Historias</a></li>
       <li><a href="{{ route('admin.galeria.index') }}" class="{{ request()->routeIs('admin.galeria.*') ? 'active' : '' }}"><i class="fa-solid fa-images"></i> Galería</a></li>
