@@ -23,7 +23,7 @@
         @endphp
         <article class="tarjeta-entrevista" style="display: flex; gap: 35px; margin-bottom: 40px; background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(62, 22, 19, 0.05); align-items: flex-start; border: 1px solid #f1ddc4; width: 95%; max-width: 1150px; box-sizing: border-box;">
           <div style="flex-shrink: 0; width: 280px; height: 190px; overflow: hidden; border-radius: 10px;">
-            <img src="{{ asset('img/entrevistas/' . $entrevista->imagen) }}" alt="Imagen" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="{{ $entrevista->imagen ? Storage::url($entrevista->imagen) : 'https://via.placeholder.com/280x190?text=Sin+imagen' }}" alt="{{ $entrevista->titulo }}" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
 
           <div class="info" style="flex-grow: 1;">

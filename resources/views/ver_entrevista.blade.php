@@ -61,7 +61,9 @@
                 @endif
 
                 <div style="width: 100%; max-height: 480px; overflow: hidden; border-radius: 10px; margin-bottom: 25px;">
-                    <img src="{{ asset('img/entrevistas/' . $entrevista->imagen) }}" alt="Imagen" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <img src="{{ $entrevista->imagen ? Storage::url($entrevista->imagen) : 'https://via.placeholder.com/950x480?text=Sin+imagen' }}" alt="{{ $entrevista->titulo }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+
+
                 </div>
 
                 @if(!empty($entrevista->subtitulo))
