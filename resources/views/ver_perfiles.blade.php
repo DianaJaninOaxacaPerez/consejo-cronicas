@@ -16,6 +16,7 @@
 
     .perfil-card {
       position: relative;
+      overflow: hidden;
       width: 100%;
       max-width: 900px;
       padding: 3rem 4rem 2.75rem;
@@ -28,14 +29,37 @@
         0 12px 40px rgba(46, 58, 74, 0.16),
         0 1px 0 rgba(255, 255, 255, 0.6) inset;
       transition: transform 0.45s cubic-bezier(.22,.9,.32,1),
-                  box-shadow 0.45s cubic-bezier(.22,.9,.32,1);
+                  box-shadow 0.45s cubic-bezier(.22,.9,.32,1),
+                  border-color 0.45s ease;
     }
 
     .perfil-card:hover {
       transform: translateY(-6px);
+      border-color: #5b7590;
       box-shadow:
         0 22px 55px rgba(46, 58, 74, 0.28),
         0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    }
+
+    .perfil-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.55),
+        transparent
+      );
+      pointer-events: none;
+      transition: left 0.7s ease;
+    }
+
+    .perfil-card:hover::before {
+      left: 130%;
     }
 
     .perfil-foto-box {
@@ -77,6 +101,11 @@
       color: #2b3644;
       text-align: center;
       margin-bottom: 0.35rem;
+      transition: color 0.35s ease;
+    }
+
+    .perfil-card:hover .perfil-nombre {
+      color: #5b7590;
     }
 
     .perfil-cargo {
