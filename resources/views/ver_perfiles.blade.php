@@ -21,12 +21,12 @@
       max-width: 900px;
       padding: 3rem 4rem 2.75rem;
       border-radius: 22px;
-      background: rgba(255, 255, 255, 0.5);
+      background: linear-gradient(160deg, rgba(227, 242, 253, 0.75), rgba(187, 222, 251, 0.55));
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border: 1px solid rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.7);
       box-shadow:
-        0 12px 40px rgba(46, 58, 74, 0.16),
+        0 12px 40px rgba(21, 60, 94, 0.18),
         0 1px 0 rgba(255, 255, 255, 0.6) inset;
       transition: transform 0.45s cubic-bezier(.22,.9,.32,1),
                   box-shadow 0.45s cubic-bezier(.22,.9,.32,1),
@@ -35,9 +35,9 @@
 
     .perfil-card:hover {
       transform: translateY(-6px);
-      border-color: #5b7590;
+      border-color: #1565C0;
       box-shadow:
-        0 22px 55px rgba(46, 58, 74, 0.28),
+        0 22px 55px rgba(21, 60, 94, 0.32),
         0 1px 0 rgba(255, 255, 255, 0.5) inset;
     }
 
@@ -73,8 +73,8 @@
       height: 168px;
       border-radius: 50%;
       padding: 4px;
-      background: linear-gradient(135deg, #ffffff, #c7d0da);
-      box-shadow: 0 6px 18px rgba(46, 58, 74, 0.22);
+      background: linear-gradient(135deg, #ffffff, #90CAF9);
+      box-shadow: 0 6px 18px rgba(21, 60, 94, 0.28);
       overflow: hidden;
     }
 
@@ -105,7 +105,7 @@
     }
 
     .perfil-card:hover .perfil-nombre {
-      color: #5b7590;
+      color: #1565C0;
     }
 
     .perfil-cargo {
@@ -134,7 +134,7 @@
       width: 42px;
       height: 2px;
       margin: 0.5rem auto 0;
-      background: #9aa8ba;
+      background: #64B5F6;
       border-radius: 2px;
     }
 
