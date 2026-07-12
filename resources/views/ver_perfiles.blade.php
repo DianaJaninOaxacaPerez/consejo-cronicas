@@ -8,29 +8,25 @@
 
   <style>
     .perfil-wrap {
-      min-height: calc(100vh - 160px);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 4rem 1.5rem;
-      background: radial-gradient(circle at 20% 15%, #eef1f4 0%, transparent 45%),
-                  linear-gradient(160deg, #dde3e9 0%, #b9c3cf 55%, #9fabb9 100%);
-      border-radius: 18px;
+      padding: 3rem 1.5rem;
     }
 
     .perfil-card {
       position: relative;
       width: 100%;
-      max-width: 620px;
-      padding: 3rem 2.75rem 2.5rem;
+      max-width: 900px;
+      padding: 3rem 4rem 2.75rem;
       border-radius: 22px;
       background: rgba(255, 255, 255, 0.5);
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
       border: 1px solid rgba(255, 255, 255, 0.65);
       box-shadow:
-        0 8px 30px rgba(46, 58, 74, 0.18),
-        0 1px 0 rgba(255, 255, 255, 0.4) inset;
+        0 12px 40px rgba(46, 58, 74, 0.16),
+        0 1px 0 rgba(255, 255, 255, 0.6) inset;
       transition: transform 0.45s cubic-bezier(.22,.9,.32,1),
                   box-shadow 0.45s cubic-bezier(.22,.9,.32,1);
     }
@@ -119,7 +115,7 @@
       line-height: 1.85;
       color: #3d4756;
       text-align: center;
-      max-width: 54ch;
+      max-width: 72ch;
       margin: 0 auto;
     }
 
@@ -149,10 +145,12 @@
 @section('content')
 <section class="container py-5 perfil-wrap">
   <div class="perfil-card">
+    @php $fotoDefault = asset('img/default-perfil.png'); @endphp
     <div class="perfil-foto-box">
       <div class="perfil-foto-ring">
-        <img src="{{ $cronista->foto ? Storage::url($cronista->foto) : asset('img/default-perfil.png') }}"
-             alt="{{ $cronista->nombre }}">
+        <img src="{{ $cronista->foto ? Storage::url($cronista->foto) : $fotoDefault }}"
+             alt="{{ $cronista->nombre }}"
+             onerror="this.onerror=null;this.src='{{ $fotoDefault }}';">
       </div>
     </div>
 
