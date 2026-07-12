@@ -51,12 +51,10 @@ Route::get('/perfiles', function () {
     $cronistas = Cronista::orderBy('id_cronista')->get();
     return view('perfiles', compact('cronistas'));
 })->name('perfiles');
-
 Route::get('/perfiles/{id}', function ($id) {
     $cronista = Cronista::findOrFail($id);
-    return view('ver_perfil', compact('cronista'));
+    return view('ver_perfiles', compact('cronista'));  // ← cambia aquí
 })->name('perfiles.show');
-
 
 
 /*Rutas administrativas (back - Livewire Starter Kit*/
