@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cronica;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class CronicaController extends Controller
 {
@@ -26,18 +26,18 @@ class CronicaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'titulo'    => 'required|string',
-            'autor'     => 'required|string',
+            'titulo'    => 'required|string|max:255',
+            'autor'     => 'required|string|max:255',
             'fecha'     => 'nullable|date',
-            'resumen'   => 'nullable|string|max:100',
-            'contenido' => 'nullable|string|max:100',
-            'imagen'    => 'nullable|image|max:2048',
+            'resumen'   => 'nullable|string|max:500',
+            'contenido' => 'nullable|string',
+            'imagen'    => 'nullable|image|max:20480', // 20MB de entrada, se comprime al guardar
         ]);
 
         $data = $request->only('titulo', 'autor', 'fecha', 'resumen', 'contenido');
 
         if ($request->hasFile('imagen')) {
-            $data['imagen'] = $request->file('imagen')->store('cronicas', 'public');
+            $data['imagen'] = ImageUploadService::store($request->file('imagen'), 'cronicas');
         }
 
         Cronica::create($data);
@@ -56,21 +56,19 @@ class CronicaController extends Controller
     public function update(Request $request, Cronica $cronica)
     {
         $request->validate([
-            'titulo'    => 'required|string',
-            'autor'     => 'required|string',
+            'titulo'    => 'required|string|max:255',
+            'autor'     => 'required|string|max:255',
             'fecha'     => 'nullable|date',
-            'resumen'   => 'nullable|string|max:100',
-            'contenido' => 'nullable|string|max:100',
-            'imagen'    => 'nullable|image|max:2048',
+            'resumen'   => 'nullable|string|max:500',
+            'contenido' => 'nullable|string',
+            'imagen'    => 'nullable|image|max:20480',
         ]);
 
         $data = $request->only('titulo', 'autor', 'fecha', 'resumen', 'contenido');
 
         if ($request->hasFile('imagen')) {
-            if ($cronica->imagen) {
-                Storage::disk('public')->delete($cronica->imagen);
-            }
-            $data['imagen'] = $request->file('imagen')->store('cronicas', 'public');
+            ImageUploadService::delete($cronica->imagen);
+            $data['imagen'] = ImageUploadService::store($request->file('imagen'), 'cronicas');
         }
 
         $cronica->update($data);
@@ -82,9 +80,7 @@ class CronicaController extends Controller
     // Elimina una crónica (equivale a eliminar_cronica.php)
     public function destroy(Cronica $cronica)
     {
-        if ($cronica->imagen) {
-            Storage::disk('public')->delete($cronica->imagen);
-        }
+        ImageUploadService::delete($cronica->imagen);
 
         $cronica->delete();
 
