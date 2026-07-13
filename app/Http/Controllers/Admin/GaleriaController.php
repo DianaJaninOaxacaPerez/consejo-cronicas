@@ -25,7 +25,7 @@ class GaleriaController extends Controller
         $request->validate([
             'titulo'      => 'required|string',
             'descripcion' => 'required|string',
-            'imagen'      => 'required|image|max:2048',
+            'imagen'      => 'required|image|max:5120',
         ]);
 
         $data = [
@@ -53,7 +53,7 @@ class GaleriaController extends Controller
         $request->validate([
             'titulo'       => 'required|string',
             'descripcion'  => 'required|string',
-            'ruta_imagen'  => 'nullable|image|max:2048',
+            'ruta_imagen'  => 'nullable|image|max:5120',
         ]);
 
         $data = [
