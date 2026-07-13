@@ -1,58 +1,50 @@
 function mostrarCronica(botonLeer) {
-    // Compatibilidad con crónicas estáticas, si todavía las utilizas.
-    if (
-        typeof botonLeer === "number" ||
-        typeof botonLeer === "string"
-    ) {
-        const contenido = document.getElementById(`cronica-${botonLeer}`);
-
-        if (contenido) {
-            contenido.classList.toggle("mostrar");
-        }
-
-        return;
-    }
-
-    // Busca el contenido completo de la tarjeta.
     const cardContent = botonLeer.closest(".card-content");
 
     if (!cardContent) {
+        console.error("No se encontró .card-content");
         return;
     }
 
+    const accionesLeer = botonLeer.closest(".acciones-cronica");
     let contenidoDiv = cardContent.querySelector(".contenido-cronica");
 
-    // Oculta el botón Leer Crónica.
-    botonLeer.style.display = "none";
+    // Ocultar el botón Leer Crónica.
+    if (accionesLeer) {
+        accionesLeer.hidden = true;
+    }
 
-    // Si todavía no existe el texto largo, se crea.
+    // Crear el contenido únicamente la primera vez.
     if (!contenidoDiv) {
         contenidoDiv = document.createElement("div");
         contenidoDiv.className = "contenido-cronica";
 
         const textoLargo =
-            botonLeer.getAttribute("data-contenido") ||
-            "Contenido no disponible.";
+            botonLeer.dataset.contenido || "Contenido no disponible.";
 
-        contenidoDiv.innerHTML = `
-            <p>${textoLargo}</p>
+        const parrafo = document.createElement("p");
+        parrafo.textContent = textoLargo;
 
-            <div class="acciones-cronica acciones-cronica--cerrar">
-                <button
-                    type="button"
-                    class="btn-pill btn-cerrar-cronica"
-                    onclick="cerrarCronica(this)"
-                >
-                    ← Volver
-                </button>
-            </div>
-        `;
+        const accionesVolver = document.createElement("div");
+        accionesVolver.className =
+            "acciones-cronica acciones-cronica--cerrar";
 
+        const botonVolver = document.createElement("button");
+        botonVolver.type = "button";
+        botonVolver.className = "btn-pill btn-cerrar-cronica";
+        botonVolver.textContent = "← Volver";
+        botonVolver.addEventListener("click", function () {
+            cerrarCronica(this);
+        });
+
+        accionesVolver.appendChild(botonVolver);
+        contenidoDiv.appendChild(parrafo);
+        contenidoDiv.appendChild(accionesVolver);
         cardContent.appendChild(contenidoDiv);
     }
 
-    // Muestra el texto largo.
-    contenidoDiv.classList.add("mostrar");
+    // Mostrar el contenido completo.
+    contenidoDiv.hidden = false;
 }
 
 function cerrarCronica(botonVolver) {
@@ -65,19 +57,19 @@ function cerrarCronica(botonVolver) {
     const cardContent = contenidoDiv.closest(".card-content");
     const card = contenidoDiv.closest(".cronica-card");
 
-    // Oculta el texto completo.
-    contenidoDiv.classList.remove("mostrar");
+    // Ocultar texto completo.
+    contenidoDiv.hidden = true;
 
-    // Vuelve a mostrar el botón Leer Crónica.
+    // Mostrar nuevamente Leer Crónica.
     if (cardContent) {
         const botonLeer = cardContent.querySelector(".btn-leer-cronica");
+        const accionesLeer = botonLeer?.closest(".acciones-cronica");
 
-        if (botonLeer) {
-            botonLeer.style.display = "inline-block";
+        if (accionesLeer) {
+            accionesLeer.hidden = false;
         }
     }
 
-    // Regresa suavemente al inicio de la tarjeta.
     if (card) {
         card.scrollIntoView({
             behavior: "smooth",

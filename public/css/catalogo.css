@@ -396,3 +396,18 @@
         height: 220px;
     }
 }
+.btn-cerrar-cronica {
+    display: inline-block;
+    padding: 0.55rem 1.6rem;
+    border: none;
+    border-radius: 999px;
+    background: #1565c0;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.acciones-cronica--cerrar {
+    margin-top: 20px;
+    text-align: center;
+}
