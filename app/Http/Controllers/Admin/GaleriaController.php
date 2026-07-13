@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Galeria;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class GaleriaController extends Controller
 {
@@ -25,7 +25,7 @@ class GaleriaController extends Controller
         $request->validate([
             'titulo'      => 'required|string',
             'descripcion' => 'required|string',
-            'imagen'      => 'required|image|max:5120',
+            'imagen'      => 'required|image|max:20480', // 20MB de entrada (foto de cámara sin comprimir)
         ]);
 
         $data = [
@@ -34,7 +34,7 @@ class GaleriaController extends Controller
         ];
 
         if ($request->hasFile('imagen')) {
-            $data['ruta_imagen'] = $request->file('imagen')->store('galeria', 'public');
+            $data['ruta_imagen'] = ImageUploadService::store($request->file('imagen'), 'galeria');
         }
 
         Galeria::create($data);
@@ -53,7 +53,7 @@ class GaleriaController extends Controller
         $request->validate([
             'titulo'       => 'required|string',
             'descripcion'  => 'required|string',
-            'ruta_imagen'  => 'nullable|image|max:5120',
+            'ruta_imagen'  => 'nullable|image|max:20480',
         ]);
 
         $data = [
@@ -62,10 +62,8 @@ class GaleriaController extends Controller
         ];
 
         if ($request->hasFile('ruta_imagen')) {
-            if ($galerium->ruta_imagen) {
-                Storage::disk('public')->delete($galerium->ruta_imagen);
-            }
-            $data['ruta_imagen'] = $request->file('ruta_imagen')->store('galeria', 'public');
+            ImageUploadService::delete($galerium->ruta_imagen);
+            $data['ruta_imagen'] = ImageUploadService::store($request->file('ruta_imagen'), 'galeria');
         }
 
         $galerium->update($data);
@@ -76,9 +74,7 @@ class GaleriaController extends Controller
 
     public function destroy(Galeria $galerium)
     {
-        if ($galerium->ruta_imagen) {
-            Storage::disk('public')->delete($galerium->ruta_imagen);
-        }
+        ImageUploadService::delete($galerium->ruta_imagen);
 
         $galerium->delete();
 
