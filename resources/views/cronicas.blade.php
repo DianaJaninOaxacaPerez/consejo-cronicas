@@ -4,6 +4,40 @@
 
 @push('styles')
   <link rel="stylesheet" href="{{ asset('css/catalogo.css') }}">
+
+  <style>
+    .cronica-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 12px 12px 0 0;
+      display: block;
+    }
+
+    .btn-pill.btn-leer-cronica {
+      display: inline-block;
+      padding: 0.55rem 1.6rem;
+      border-radius: 999px;
+      border: none;
+      background: #1565C0;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 3px 10px rgba(21, 101, 192, 0.25);
+    }
+
+    .btn-pill.btn-leer-cronica:hover {
+      background: #0d47a1;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(21, 101, 192, 0.35);
+    }
+
+    .btn-pill.btn-leer-cronica:active {
+      transform: translateY(0);
+    }
+  </style>
 @endpush
 
 @section('content')
@@ -21,8 +55,11 @@
 
   <div class="cards-cronicas">
     @forelse($cronicas as $cronica)
+      @php $imgDefault = asset('img/default-cronica.png'); @endphp
       <div class="card cronica-card">
-        <img src="{{ asset('img/' . $cronica->imagen) }}" alt="{{ $cronica->titulo }}">
+        <img src="{{ $cronica->imagen ? Storage::url($cronica->imagen) : $imgDefault }}"
+             alt="{{ $cronica->titulo }}"
+             onerror="this.onerror=null;this.src='{{ $imgDefault }}';">
 
         <div class="card-content">
           <span class="cronica-fecha">{{ $cronica->fecha->translatedFormat('d M Y') }}</span>
