@@ -24,11 +24,11 @@
     >
   </div>
 
-  <div class="row g-4 historias-grid">
+  <div class="historias-grid">
 
     @forelse($historias as $historia)
 
-      <div class="col-12 col-md-6 col-lg-4 historia-item">
+      <div class="historia-item">
         <article class="historia-publica h-100">
 
           @if($historia->imagen)
