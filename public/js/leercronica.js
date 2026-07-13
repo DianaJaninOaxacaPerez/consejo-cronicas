@@ -1,55 +1,87 @@
-function mostrarCronica(elemento) {
-    // 1. Si el elemento es un número o texto (Caso de la tarjeta estática)
-    if (typeof elemento === 'number' || typeof elemento === 'string') {
-        const contenido = document.getElementById(`cronica-${elemento}`);
+function mostrarCronica(botonLeer) {
+    // Compatibilidad con crónicas estáticas, si todavía las utilizas.
+    if (
+        typeof botonLeer === "number" ||
+        typeof botonLeer === "string"
+    ) {
+        const contenido = document.getElementById(`cronica-${botonLeer}`);
+
         if (contenido) {
             contenido.classList.toggle("mostrar");
         }
+
         return;
     }
 
-    // 2. Si el elemento es el botón "this" (Caso de las tarjetas de la Base de Datos)
-    const cardContent = elemento.parentElement;
+    // Busca el contenido completo de la tarjeta.
+    const cardContent = botonLeer.closest(".card-content");
+
+    if (!cardContent) {
+        return;
+    }
+
     let contenidoDiv = cardContent.querySelector(".contenido-cronica");
 
-    // Si no existe el contenedor del texto, lo creamos e inyectamos el contenido
+    // Oculta el botón Leer Crónica.
+    botonLeer.style.display = "none";
+
+    // Si todavía no existe el texto largo, se crea.
     if (!contenidoDiv) {
         contenidoDiv = document.createElement("div");
         contenidoDiv.className = "contenido-cronica";
 
-        // Jalamos el texto que guardaste en el 'data-contenido' de PHP
-        const textoLargo = elemento.getAttribute("data-contenido");
+        const textoLargo =
+            botonLeer.getAttribute("data-contenido") ||
+            "Contenido no disponible.";
 
         contenidoDiv.innerHTML = `
             <p>${textoLargo}</p>
+
             <div class="acciones-cronica acciones-cronica--cerrar">
-                <button type="button" class="btn-pill btn-cerrar-cronica" onclick="cerrarCronica(this)">
+                <button
+                    type="button"
+                    class="btn-pill btn-cerrar-cronica"
+                    onclick="cerrarCronica(this)"
+                >
                     ← Volver
                 </button>
             </div>
         `;
-        cardContent.appendChild(contenidoDiv);
 
-        // Le damos un momento para que la animación de CSS funcione bien
-        setTimeout(() => {
-            contenidoDiv.classList.add("mostrar");
-        }, 10);
-    } else {
-        // Si ya existía, solo lo esconde o lo muestra
-        contenidoDiv.classList.toggle("mostrar");
+        cardContent.appendChild(contenidoDiv);
     }
+
+    // Muestra el texto largo.
+    contenidoDiv.classList.add("mostrar");
 }
 
-function cerrarCronica(boton) {
-    const contenidoDiv = boton.closest(".contenido-cronica");
-    if (!contenidoDiv) return;
+function cerrarCronica(botonVolver) {
+    const contenidoDiv = botonVolver.closest(".contenido-cronica");
 
+    if (!contenidoDiv) {
+        return;
+    }
+
+    const cardContent = contenidoDiv.closest(".card-content");
+    const card = contenidoDiv.closest(".cronica-card");
+
+    // Oculta el texto completo.
     contenidoDiv.classList.remove("mostrar");
 
-    // Regresa la vista al inicio de la tarjeta para que el usuario no quede
-    // viendo un espacio vacío donde estaba el texto largo
-    const card = contenidoDiv.closest(".cronica-card");
+    // Vuelve a mostrar el botón Leer Crónica.
+    if (cardContent) {
+        const botonLeer = cardContent.querySelector(".btn-leer-cronica");
+
+        if (botonLeer) {
+            botonLeer.style.display = "inline-block";
+        }
+    }
+
+    // Regresa suavemente al inicio de la tarjeta.
     if (card) {
-        card.scrollIntoView({ behavior: "smooth", block: "start" });
+        card.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
     }
 }
