@@ -411,3 +411,12 @@
     margin-top: 20px;
     text-align: center;
 }
+
+#historia .historias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
