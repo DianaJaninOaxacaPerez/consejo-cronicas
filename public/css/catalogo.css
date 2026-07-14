@@ -412,3 +412,26 @@
     max-width: 1400px;
     margin: 0 auto;
 }
+
+/* Tarjeta */
+#historia .historia-publica{
+    overflow: hidden;
+    transition: .25s ease;
+    cursor: pointer;
+}
+
+/* Imagen */
+#historia .historia-publica__imagen{
+    transition: transform .25s ease;
+}
+
+/* Hover */
+#historia .historia-publica:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,.25);
+}
+
+/* Zoom fuerte */
+#historia .historia-publica:hover .historia-publica__imagen{
+    transform: scale(1.25);
+}
