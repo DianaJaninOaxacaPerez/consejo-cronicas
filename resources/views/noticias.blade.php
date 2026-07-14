@@ -22,10 +22,11 @@
   <div class="feed-container">
     @forelse($noticias as $noticia)
       @php
-        $rutaImagen = $noticia->imagen
-          ? asset('img/noticias/' . $noticia->imagen)
-          : 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=600';
 
+      $rutaImagen = $noticia->imagen
+      ? Storage::url($noticia->imagen)
+      : 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=600';
+        
         $resumen = mb_strlen($noticia->contenido) > 160
           ? mb_substr($noticia->contenido, 0, 160) . '...'
           : $noticia->contenido;
