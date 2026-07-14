@@ -304,14 +304,6 @@
     box-sizing: border-box;
 }
 
-#historia .historias-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 25px;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-}
 
 #historia .historia-item {
     width: 100%;

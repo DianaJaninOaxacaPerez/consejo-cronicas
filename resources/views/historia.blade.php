@@ -24,7 +24,7 @@
     >
   </div>
 
-  <div class="cards">
+  <div class="historias-grid">
 
     @forelse($historias as $historia)
 
