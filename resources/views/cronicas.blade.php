@@ -91,6 +91,6 @@
 @endsection
 
 @push('scripts')
-  <script src="{{ asset('js/leercronica.js') }}"></script>
-  <script src="{{ asset('js/buscador.js') }}"></script>
+  <script src="{{ asset('js/leercronica.js') }}?v={{ filemtime(public_path('js/leercronica.js')) }}"></script>
+  <script src="{{ asset('js/buscador.js') }}?v={{ filemtime(public_path('js/buscador.js')) }}"></script>
 @endpush

@@ -1,55 +1,79 @@
-function mostrarCronica(elemento) {
-    // 1. Si el elemento es un número o texto (Caso de la tarjeta estática)
-    if (typeof elemento === 'number' || typeof elemento === 'string') {
-        const contenido = document.getElementById(`cronica-${elemento}`);
-        if (contenido) {
-            contenido.classList.toggle("mostrar");
-        }
+function mostrarCronica(botonLeer) {
+    const cardContent = botonLeer.closest(".card-content");
+
+    if (!cardContent) {
+        console.error("No se encontró .card-content");
         return;
     }
 
-    // 2. Si el elemento es el botón "this" (Caso de las tarjetas de la Base de Datos)
-    const cardContent = elemento.parentElement;
+    const accionesLeer = botonLeer.closest(".acciones-cronica");
     let contenidoDiv = cardContent.querySelector(".contenido-cronica");
 
-    // Si no existe el contenedor del texto, lo creamos e inyectamos el contenido
+    // Ocultar el botón Leer Crónica.
+    if (accionesLeer) {
+        accionesLeer.hidden = true;
+    }
+
+    // Crear el contenido únicamente la primera vez.
     if (!contenidoDiv) {
         contenidoDiv = document.createElement("div");
         contenidoDiv.className = "contenido-cronica";
 
-        // Jalamos el texto que guardaste en el 'data-contenido' de PHP
-        const textoLargo = elemento.getAttribute("data-contenido");
+        const textoLargo =
+            botonLeer.dataset.contenido || "Contenido no disponible.";
 
-        contenidoDiv.innerHTML = `
-            <p>${textoLargo}</p>
-            <div class="acciones-cronica acciones-cronica--cerrar">
-                <button type="button" class="btn-pill btn-cerrar-cronica" onclick="cerrarCronica(this)">
-                    ← Volver
-                </button>
-            </div>
-        `;
+        const parrafo = document.createElement("p");
+        parrafo.textContent = textoLargo;
+
+        const accionesVolver = document.createElement("div");
+        accionesVolver.className =
+            "acciones-cronica acciones-cronica--cerrar";
+
+        const botonVolver = document.createElement("button");
+        botonVolver.type = "button";
+        botonVolver.className = "btn-pill btn-cerrar-cronica";
+        botonVolver.textContent = "← Volver";
+        botonVolver.addEventListener("click", function () {
+            cerrarCronica(this);
+        });
+
+        accionesVolver.appendChild(botonVolver);
+        contenidoDiv.appendChild(parrafo);
+        contenidoDiv.appendChild(accionesVolver);
         cardContent.appendChild(contenidoDiv);
-
-        // Le damos un momento para que la animación de CSS funcione bien
-        setTimeout(() => {
-            contenidoDiv.classList.add("mostrar");
-        }, 10);
-    } else {
-        // Si ya existía, solo lo esconde o lo muestra
-        contenidoDiv.classList.toggle("mostrar");
     }
+
+    // Mostrar el contenido completo.
+    contenidoDiv.hidden = false;
 }
 
-function cerrarCronica(boton) {
-    const contenidoDiv = boton.closest(".contenido-cronica");
-    if (!contenidoDiv) return;
+function cerrarCronica(botonVolver) {
+    const contenidoDiv = botonVolver.closest(".contenido-cronica");
 
-    contenidoDiv.classList.remove("mostrar");
+    if (!contenidoDiv) {
+        return;
+    }
 
-    // Regresa la vista al inicio de la tarjeta para que el usuario no quede
-    // viendo un espacio vacío donde estaba el texto largo
+    const cardContent = contenidoDiv.closest(".card-content");
     const card = contenidoDiv.closest(".cronica-card");
+
+    // Ocultar texto completo.
+    contenidoDiv.hidden = true;
+
+    // Mostrar nuevamente Leer Crónica.
+    if (cardContent) {
+        const botonLeer = cardContent.querySelector(".btn-leer-cronica");
+        const accionesLeer = botonLeer?.closest(".acciones-cronica");
+
+        if (accionesLeer) {
+            accionesLeer.hidden = false;
+        }
+    }
+
     if (card) {
-        card.scrollIntoView({ behavior: "smooth", block: "start" });
+        card.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
     }
 }
