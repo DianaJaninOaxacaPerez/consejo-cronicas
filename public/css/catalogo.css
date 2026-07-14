@@ -435,3 +435,14 @@
 #historia .historia-publica:hover .historia-publica__imagen{
     transform: scale(1.25);
 }
+
+/* Reduce el ancho de las tarjetas de Crónicas */
+#cronicas .cards-cronicas {
+    width: calc(100% - 4cm);
+    margin: 0 auto;
+}
+@media (max-width: 768px) {
+    #cronicas .cards-cronicas {
+        width: 100%;
+    }
+}
