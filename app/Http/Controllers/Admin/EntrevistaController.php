@@ -26,7 +26,7 @@ class EntrevistaController extends Controller
             'titulo'    => 'required|string|max:255',
             'subtitulo' => 'required|string|max:200',
             'contenido' => 'required|string',
-            'imagen'    => 'required|image|max:2048',
+            'imagen'    => 'required|image|max:5120',
         ]);
 
         $data = $request->only('titulo', 'subtitulo', 'contenido');
@@ -52,7 +52,7 @@ class EntrevistaController extends Controller
             'titulo'    => 'required|string|max:255',
             'subtitulo' => 'required|string|max:200',
             'contenido' => 'required|string',
-            'imagen'    => 'nullable|image|max:2048',
+            'imagen'    => 'nullable|image|max:5120',
         ]);
 
         $data = $request->only('titulo', 'subtitulo', 'contenido');
