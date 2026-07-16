@@ -44,17 +44,23 @@
     <input type="text" id="inputBusqueda" class="form-control" placeholder="Buscar por título...">
   </div>
 
-  <div class="gallery">
-    @forelse($imagenes as $foto)
-      @php $imgDefault = asset('img/default-galeria.png'); @endphp
-      <img
-        src="{{ $foto->ruta_imagen ? Storage::url($foto->ruta_imagen) : $imgDefault }}"
-        alt="Imagen de la galería"
-        data-title="{{ $foto->titulo }}"
-        data-description="{{ $foto->descripcion }}"
-        onerror="this.onerror=null;this.src='{{ $imgDefault }}';"
-      >
-    @empty
+  @forelse($imagenes as $foto)
+  @php $imgDefault = asset('img/default-galeria.png'); @endphp
+
+  <div
+    class="gallery-item-container"
+    data-title="{{ $foto->titulo }}"
+    data-description="{{ $foto->descripcion }}"
+  >
+    <img
+      src="{{ $foto->ruta_imagen ? Storage::url($foto->ruta_imagen) : $imgDefault }}"
+      alt="{{ $foto->titulo }}"
+      data-title="{{ $foto->titulo }}"
+      data-description="{{ $foto->descripcion }}"
+      onerror="this.onerror=null;this.src='{{ $imgDefault }}';"
+    >
+  </div>
+@empty
       <p class="text-center">Próximamente más imágenes en la galería.</p>
     @endforelse
   </div>
@@ -73,6 +79,6 @@
 @endsection
 
 @push('scripts')
-  <script src="{{ asset('js/galeria.js') }}"></script>
-  <script src="{{ asset('js/buscador.js') }}"></script>
+  <script src="{{ asset('js/galeria.js') }}?v={{ filemtime(public_path('js/galeria.js')) }}"></script>
+  <script src="{{ asset('js/buscador.js') }}?v={{ filemtime(public_path('js/buscador.js')) }}"></script>
 @endpush

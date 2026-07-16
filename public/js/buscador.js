@@ -51,31 +51,69 @@ document.addEventListener("DOMContentLoaded", function () {
          * CASO 2: tarjetas de Historia y otros módulos.
          */
         const tarjetas = document.querySelectorAll(
-            ".historia-card, " +
-            ".cronica-card, " +
-            ".feed-card, " +
-            ".opcion-card, " +
-            ".tarjeta-entrevista, " +
-            ".gallery-item-container"
-        );
+    ".historia-card, " +
+    ".historia-item, " +
+    ".cronica-card, " +
+    ".feed-card, " +
+    ".opcion-card, " +
+    ".tarjeta-entrevista, " +
+    ".gallery-item-container, " +
+    ".gallery img"
+);
 
         let encontrados = 0;
 
         tarjetas.forEach(function (tarjeta) {
-            const texto = tarjeta.textContent.toLowerCase().trim();
-            const coincide =
-                filtro === "" || texto.includes(filtro);
+    let texto = tarjeta.textContent.toLowerCase().trim();
 
-            tarjeta.style.setProperty(
-                "display",
-                coincide ? "" : "none",
-                "important"
-            );
+    // Lee datos directamente del elemento.
+    const tituloData =
+        tarjeta.dataset.title?.toLowerCase().trim() || "";
 
-            if (coincide && filtro !== "") {
-                encontrados++;
-            }
-        });
+    const descripcionData =
+        tarjeta.dataset.description?.toLowerCase().trim() || "";
+
+    // Si es un contenedor, busca también la imagen interna.
+    const imagenInterna = tarjeta.querySelector
+        ? tarjeta.querySelector("img")
+        : null;
+
+    const tituloImagen =
+        imagenInterna?.dataset.title?.toLowerCase().trim() || "";
+
+    const descripcionImagen =
+        imagenInterna?.dataset.description?.toLowerCase().trim() || "";
+
+    texto = `
+        ${texto}
+        ${tituloData}
+        ${descripcionData}
+        ${tituloImagen}
+        ${descripcionImagen}
+    `.toLowerCase().trim();
+
+    const coincide =
+        filtro === "" || texto.includes(filtro);
+
+    // Las imágenes públicas deben regresar como block.
+    let displayVisible = "";
+
+    if (tarjeta.matches(".gallery img")) {
+        displayVisible = "block";
+    } else if (tarjeta.matches(".gallery-item-container")) {
+        displayVisible = "flex";
+    }
+
+    tarjeta.style.setProperty(
+        "display",
+        coincide ? displayVisible : "none",
+        "important"
+    );
+
+    if (coincide && filtro !== "") {
+        encontrados++;
+    }
+});
 
         if (
             filtro !== "" &&
