@@ -1,6 +1,29 @@
 // Buscador Universal - Versión Definitiva Libre de Errores
 document.getElementById('inputBusqueda').addEventListener('keyup', function() {
     let filtro = this.value.toLowerCase().trim();
+    // ====== BUSCADOR PARA TABLAS ADMIN ======
+const filasCronicas = document.querySelectorAll(".fila-cronica");
+
+if (filasCronicas.length > 0) {
+
+    let encontrados = 0;
+
+    filasCronicas.forEach(function (fila) {
+
+        const textoFila = fila.textContent.toLowerCase().trim();
+
+        if (textoFila.includes(filtro)) {
+            fila.style.display = "";
+            encontrados++;
+        } else {
+            fila.style.display = "none";
+        }
+
+    });
+
+    return;
+}
+// ========================================
 
     // Seleccionamos las tarjetas y las imágenes directas
     let tarjetas = document.querySelectorAll('.opcion-card, .card:not(.admin-card), [class*="-card"]:not(.admin-card), .tarjeta-entrevista:not(.admin-card), .gallery-item-container, .gallery img');
