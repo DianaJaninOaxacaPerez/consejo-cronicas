@@ -45,14 +45,78 @@
         transform: translateY(-2px);
         box-shadow: 0 6px 14px rgba(47,155,216,.28);
     }
+    .encabezado-galeria-admin {
+    position: relative;
+    margin-bottom: 25px;
+    padding: 0 190px;
+    min-height: 75px;
+}
+
+.btn-agregar-galeria {
+    position: absolute;
+    top: 5px;
+    right: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 10px 22px;
+    border-radius: 50px;
+    background-color: #6FB8E0;
+    color: #FFFFFF;
+    border: 1px solid #6FB8E0;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(47, 155, 216, 0.25);
+}
+
+.btn-agregar-galeria:hover {
+    background-color: #2F9BD8;
+    border-color: #2F9BD8;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 16px rgba(47, 155, 216, 0.35);
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 768px) {
+    .encabezado-galeria-admin {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .btn-agregar-galeria {
+        position: static;
+    }
+}
   </style>
 @endpush
 
 @section('content')
 
-<div class="section-title text-center mb-4">
-  <h2>Galería Cultural (Admin)</h2>
-  <p>Fotografías y recuerdos de Huejutla</p>
+<div class="encabezado-galeria-admin">
+
+  <div class="section-title text-center">
+    <h2>Galería Cultural (Admin)</h2>
+    <p>Fotografías y recuerdos de Huejutla</p>
+  </div>
+
+  <a href="{{ route('admin.galeria.create') }}"
+     class="btn-agregar-galeria">
+    <span>＋</span>
+    Agregar contenido
+  </a>
+
 </div>
 
 <div class="search-box mb-4 mx-auto" style="max-width: 400px;">
@@ -89,13 +153,7 @@
   </div>
 </div>
 
-<div class="card admin-card" style="margin-top: 30px;">
-  <div class="card-content">
-    <h3>Agregar Contenido</h3>
-    <p>Administre la galería.</p>
-    <a href="{{ route('admin.galeria.create') }}" class="btn-admin">Agregar</a>
-  </div>
-</div>
+
 
 @endsection
 
