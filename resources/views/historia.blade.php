@@ -20,7 +20,7 @@
       type="text"
       id="inputBusqueda"
       class="form-control"
-      placeholder="Buscar por título..."
+      placeholder="Buscar por títulao..."
     >
   </div>
 
@@ -72,6 +72,6 @@
 
 @endsection
 
-@push('scripts')
-  <script src="{{ asset('js/leercronica.js') }}"></script>
+¿@push('scripts')
+  <script src="{{ asset('js/buscador.js') }}?v={{ filemtime(public_path('js/buscador.js')) }}"></script>
 @endpush
