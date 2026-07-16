@@ -104,7 +104,14 @@
 @section('content')
 
 
-<div class="search-box mb-4 mx-auto" style="max-width: 400px;">
+<div class="encabezado-eventos-admin">
+
+  <div class="section-title text-center">
+    <h2>Panel de Eventos</h2>
+    <p>Administra las novedades culturales</p>
+  </div>
+
+  <div class="search-box mb-4 mx-auto" style="max-width: 400px;">
   <input
     type="text"
     id="inputBusqueda"
@@ -113,12 +120,6 @@
   >
 </div>
 
-<div class="encabezado-eventos-admin">
-
-  <div class="section-title text-center">
-    <h2>Panel de Eventos</h2>
-    <p>Administra las novedades culturales</p>
-  </div>
 
   <a href="{{ route('admin.eventos.create') }}"
      class="btn-agregar-evento">

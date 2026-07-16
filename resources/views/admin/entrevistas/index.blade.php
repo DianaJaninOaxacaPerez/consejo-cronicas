@@ -49,14 +49,7 @@
 @section('content')
 
 
-<div class="search-box mb-4 mx-auto" style="max-width: 400px;">
-  <input
-    type="text"
-    id="inputBusqueda"
-    class="form-control"
-    placeholder="Buscar por título o autor..."
-  >
-</div>
+
 
 <div class="admin-header">
 
@@ -64,6 +57,15 @@
         <h2>Entrevistas</h2>
         <p>Administra las entrevistas</p>
     </div>
+
+    <div class="search-box mb-4 mx-auto" style="max-width: 400px;">
+  <input
+    type="text"
+    id="inputBusqueda"
+    class="form-control"
+    placeholder="Buscar por título o autor..."
+  >
+</div>
 
     <a href="{{ route('admin.entrevistas.create') }}"
        class="admin-add-btn">
