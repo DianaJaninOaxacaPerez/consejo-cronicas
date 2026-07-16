@@ -25,11 +25,11 @@
     @forelse($eventos as $evento)
       <div class="feed-card">
         <div class="feed-image">
-          <img src="{{ asset('img/' . $evento->imagen) }}"
-               alt="Evento"
-               class="evento-foto-clic"
-               data-src="{{ asset('img/' . $evento->imagen) }}"
-               style="cursor: pointer;">
+          <img src="{{ Storage::url($evento->imagen) }}"
+                alt="{{ $evento->nombre }}"
+                class="evento-foto-clic"
+                data-src="{{ Storage::url($evento->imagen) }}"
+                style="cursor: pointer;">
         </div>
 
         <div class="feed-info">
