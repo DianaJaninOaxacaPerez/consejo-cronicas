@@ -158,6 +158,6 @@
 @endsection
 
 @push('scripts')
-  <script src="{{ asset('js/galeria.js') }}"></script>
-  <script src="{{ asset('js/buscador.js') }}"></script>
+  <script src="{{ asset('js/galeria.js') }}?v={{ filemtime(public_path('js/galeria.js')) }}"></script>
+  <script src="{{ asset('js/buscador.js') }}?v={{ filemtime(public_path('js/buscador.js')) }}"></script>
 @endpush

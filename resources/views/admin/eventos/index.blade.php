@@ -103,6 +103,16 @@
 
 @section('content')
 
+
+<div class="search-box mb-4 mx-auto" style="max-width: 400px;">
+  <input
+    type="text"
+    id="inputBusqueda"
+    class="form-control"
+    placeholder="Buscar por título o autor..."
+  >
+</div>
+
 <div class="encabezado-eventos-admin">
 
   <div class="section-title text-center">
