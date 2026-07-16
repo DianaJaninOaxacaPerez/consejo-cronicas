@@ -1,110 +1,139 @@
-// Buscador Universal - Versión Definitiva Libre de Errores
-document.getElementById('inputBusqueda').addEventListener('keyup', function() {
-    let filtro = this.value.toLowerCase().trim();
-    // ====== BUSCADOR PARA TABLAS ADMIN ======
-const filasCronicas = document.querySelectorAll(".fila-cronica");
+document.addEventListener("DOMContentLoaded", function () {
+    const inputBusqueda = document.getElementById("inputBusqueda");
 
-if (filasCronicas.length > 0) {
-
-    let encontrados = 0;
-
-    filasCronicas.forEach(function (fila) {
-
-        const textoFila = fila.textContent.toLowerCase().trim();
-
-        if (textoFila.includes(filtro)) {
-            fila.style.display = "";
-            encontrados++;
-        } else {
-            fila.style.display = "none";
-        }
-
-    });
-
-    return;
-}
-// ========================================
-
-    // Seleccionamos las tarjetas y las imágenes directas
-    let tarjetas = document.querySelectorAll('.opcion-card, .card:not(.admin-card), [class*="-card"]:not(.admin-card), .tarjeta-entrevista:not(.admin-card), .gallery-item-container, .gallery img');
-
-    let contenedorPadre = document.querySelector('.opciones-grid, .cards, .gallery, .feed-container, .feed-grid, .noticias');
-
-    // 1. Limpieza absoluta inmediata de cualquier mensaje de error anterior
-    let mensajeExistente = document.getElementById('sin-resultados-busqueda');
-    if (mensajeExistente) {
-        mensajeExistente.remove();
-    }
-
-    // 2. Si el buscador está vacío, mostramos todo y detenemos el script
-    if (filtro === "") {
-        tarjetas.forEach(function(tarjeta) {
-            tarjeta.style.setProperty('display', '', 'important');
-        });
+    // Evita errores en páginas que no contienen buscador.
+    if (!inputBusqueda) {
         return;
     }
 
-    let encontrados = 0;
+    inputBusqueda.addEventListener("input", function () {
+        const filtro = inputBusqueda.value.toLowerCase().trim();
 
-    tarjetas.forEach(function(tarjeta) {
-        let tituloText = "";
+        // Elimina el mensaje anterior.
+        const mensajeAnterior = document.getElementById(
+            "sin-resultados-busqueda"
+        );
 
-        // CASO A: Imagen directa (Galería Pública)
-        if (tarjeta.tagName.toLowerCase() === 'img') {
-            let dataTitle = tarjeta.getAttribute('data-title');
-            if (dataTitle) {
-                tituloText = dataTitle.toLowerCase().trim();
-            } else if (tarjeta.getAttribute('alt')) {
-                tituloText = tarjeta.getAttribute('alt').toLowerCase().trim();
-            }
-        }
-        // CASO B: Tarjetas comunes
-        else {
-            let tituloElemento = tarjeta.querySelector('.historia-titulo, .galeria-titulo, .titulo-entrevista, h3, h2');
-
-            if (tituloElemento) {
-                tituloText = tituloElemento.textContent.toLowerCase().trim();
-            }
+        if (mensajeAnterior) {
+            mensajeAnterior.remove();
         }
 
-        // Evaluamos si el texto coincide con lo escrito
-        if (tituloText !== "") {
+        /*
+         * CASO 1: tablas administrativas, como Crónicas.
+         */
+        const filasTabla = document.querySelectorAll(
+            ".admin-table tbody tr.fila-cronica"
+        );
 
-            if (tituloText.includes(filtro)) {
-                tarjeta.style.setProperty('display', '', 'important');
+        if (filasTabla.length > 0) {
+            let encontrados = 0;
+
+            filasTabla.forEach(function (fila) {
+                const texto = fila.textContent.toLowerCase().trim();
+                const coincide =
+                    filtro === "" || texto.includes(filtro);
+
+                fila.style.display = coincide ? "" : "none";
+
+                if (coincide && filtro !== "") {
+                    encontrados++;
+                }
+            });
+
+            if (filtro !== "" && encontrados === 0) {
+                mostrarMensajeEnTabla();
+            }
+
+            return;
+        }
+
+        /*
+         * CASO 2: tarjetas de Historia y otros módulos.
+         */
+        const tarjetas = document.querySelectorAll(
+            ".historia-card, " +
+            ".cronica-card, " +
+            ".feed-card, " +
+            ".opcion-card, " +
+            ".tarjeta-entrevista, " +
+            ".gallery-item-container"
+        );
+
+        let encontrados = 0;
+
+        tarjetas.forEach(function (tarjeta) {
+            const texto = tarjeta.textContent.toLowerCase().trim();
+            const coincide =
+                filtro === "" || texto.includes(filtro);
+
+            tarjeta.style.setProperty(
+                "display",
+                coincide ? "" : "none",
+                "important"
+            );
+
+            if (coincide && filtro !== "") {
                 encontrados++;
-            } else {
-                tarjeta.style.setProperty('display', 'none', 'important');
             }
+        });
 
-        } else {
-            tarjeta.style.setProperty('display', 'none', 'important');
+        if (
+            filtro !== "" &&
+            encontrados === 0 &&
+            tarjetas.length > 0
+        ) {
+            mostrarMensajeEnTarjetas();
         }
-
     });
+});
 
-    // Mostrar mensaje si no hay resultados
-    if (encontrados === 0 && contenedorPadre) {
+function mostrarMensajeEnTabla() {
+    const tbody = document.querySelector(".admin-table tbody");
 
-        let mensajeNoResultados = document.createElement('p');
-
-        mensajeNoResultados.id = 'sin-resultados-busqueda';
-        mensajeNoResultados.textContent = 'No se encontraron resultados para tu búsqueda.';
-
-        mensajeNoResultados.style.cssText = `
-            grid-column: 1 / -1 !important;
-            display: block !important;
-            width: 100% !important;
-            text-align: center !important;
-            color: #a66b37 !important;
-            font-weight: 500 !important;
-            padding: 50px 10px !important;
-            font-family: 'Poppins', sans-serif !important;
-            clear: both !important;
-            flex-basis: 100% !important;
-        `;
-
-        contenedorPadre.appendChild(mensajeNoResultados);
+    if (!tbody) {
+        return;
     }
 
-});
+    const fila = document.createElement("tr");
+    fila.id = "sin-resultados-busqueda";
+
+    fila.innerHTML = `
+        <td colspan="5"
+            style="
+                text-align:center;
+                padding:30px;
+                color:#666;
+                font-family:'Poppins', sans-serif;
+            ">
+            No se encontraron resultados para la búsqueda.
+        </td>
+    `;
+
+    tbody.appendChild(fila);
+}
+
+function mostrarMensajeEnTarjetas() {
+    const contenedor = document.querySelector(
+        ".cards, .cards-cronicas, .feed-container, .gallery"
+    );
+
+    if (!contenedor) {
+        return;
+    }
+
+    const mensaje = document.createElement("p");
+    mensaje.id = "sin-resultados-busqueda";
+    mensaje.textContent =
+        "No se encontraron resultados para la búsqueda.";
+
+    mensaje.style.cssText = `
+        grid-column: 1 / -1;
+        width: 100%;
+        text-align: center;
+        padding: 40px 10px;
+        color: #666;
+        font-family: 'Poppins', sans-serif;
+    `;
+
+    contenedor.appendChild(mensaje);
+}

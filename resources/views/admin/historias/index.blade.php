@@ -59,3 +59,6 @@
 </div>
 
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/buscador.js') }}?v={{ filemtime(public_path('js/buscador.js')) }}"></script>
+@endpush
