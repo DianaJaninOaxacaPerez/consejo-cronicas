@@ -9,9 +9,21 @@
 
 @section('content')
 
-<div class="section-title text-center mb-4">
-  <h2>Noticias</h2>
-  <p>Entérate de las últimas novedades</p>
+<div class="admin-header">
+
+    <div class="section-title text-center">
+        <h2>Noticias</h2>
+        <p>Administra las noticias</p>
+    </div>
+
+    <a href="{{ route('admin.noticias.create') }}"
+       class="admin-add-btn">
+
+        <span>＋</span>
+        Agregar contenido
+
+    </a>
+
 </div>
 
 <div class="search-box mb-4 mx-auto" style="max-width: 400px;">
@@ -53,13 +65,6 @@
     <p style="padding:20px;">Aún no hay noticias publicadas.</p>
   @endforelse
 
-  <div class="card admin-card">
-    <div class="card-content">
-      <h3>Agregar Contenido</h3>
-      <p>Administre las noticias.</p>
-      <a href="{{ route('admin.noticias.create') }}" class="btn-admin">Agregar</a>
-    </div>
-  </div>
 </div>
 
 @endsection

@@ -5,9 +5,21 @@
   <link rel="stylesheet" href="{{ asset('css/galeriaadmin.css') }}">
 @endpush
 @section('content')
-<div class="section-title text-center mb-4">
-  <h2>Perfiles</h2>
-  <p>Administra a los integrantes del consejo</p>
+<div class="admin-header">
+
+    <div class="section-title text-center">
+        <h2>Perfiles</h2>
+        <p>Administra a los integrantes del consejo</p>
+    </div>
+
+    <a href="{{ route('admin.cronistas.create') }}"
+       class="admin-add-btn">
+
+        <span>＋</span>
+        Agregar perfil
+
+    </a>
+
 </div>
 <div class="feed-container">
   @forelse($cronistas as $cronista)
@@ -31,12 +43,6 @@
   @empty
     <p style="padding:20px;">Aún no hay perfiles registrados.</p>
   @endforelse
-  <div class="card admin-card">
-    <div class="card-content">
-      <h3>Agregar Perfil</h3>
-      <p>Administre los perfiles del consejo.</p>
-      <a href="{{ route('admin.cronistas.create') }}" class="btn-admin">Agregar</a>
-    </div>
-  </div>
+  
 </div>
 @endsection

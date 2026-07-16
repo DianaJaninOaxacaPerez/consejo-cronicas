@@ -7,6 +7,61 @@
   <link rel="stylesheet" href="{{ asset('css/eventos.css') }}">
   <link rel="stylesheet" href="{{ asset('css/galeriaadmin.css') }}">
   <style>
+    .encabezado-eventos-admin {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 0 190px;
+    min-height: 75px;
+}
+
+.btn-agregar-evento {
+    position: absolute;
+    top: 5px;
+    right: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 10px 22px;
+    border-radius: 50px;
+
+    background-color: #6FB8E0;
+    color: #FFFFFF;
+    border: 1px solid #6FB8E0;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(47, 155, 216, 0.25);
+}
+
+.btn-agregar-evento:hover {
+    background-color: #2F9BD8;
+    border-color: #2F9BD8;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 16px rgba(47, 155, 216, 0.35);
+}
+
+@media (max-width: 768px) {
+    .encabezado-eventos-admin {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .btn-agregar-evento {
+        position: static;
+    }
+}
     .acciones-evento {
         display: flex;
         gap: 8px;
@@ -48,9 +103,19 @@
 
 @section('content')
 
-<div class="section-title text-center mb-4">
-  <h2>Panel de Eventos</h2>
-  <p>Administra las novedades culturales</p>
+<div class="encabezado-eventos-admin">
+
+  <div class="section-title text-center">
+    <h2>Panel de Eventos</h2>
+    <p>Administra las novedades culturales</p>
+  </div>
+
+  <a href="{{ route('admin.eventos.create') }}"
+     class="btn-agregar-evento">
+    <span>＋</span>
+    Agregar contenido
+  </a>
+
 </div>
 
 <div class="feed-container">
@@ -85,14 +150,6 @@
   @empty
     <p style="padding: 20px; text-align: center; color: #52626D;">No hay eventos registrados en este momento.</p>
   @endforelse
-</div>
-
-<div class="card admin-card" style="margin-top: 30px;">
-  <div class="card-content">
-    <h3>Agregar Contenido</h3>
-    <p>Administre los eventos de la plataforma.</p>
-    <a href="{{ route('admin.eventos.create') }}" class="btn-admin">Agregar</a>
-  </div>
 </div>
 
 <div class="image-viewer" id="viewer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;">

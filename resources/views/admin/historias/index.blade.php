@@ -8,9 +8,21 @@
 
 @section('content')
 
-<div class="section-title text-center mb-4">
-  <h2>Historia de Huejutla</h2>
-  <p>Conociendo nuestras raíces</p>
+<div class="admin-header">
+
+    <div class="section-title text-center">
+        <h2>Historias</h2>
+        <p>Administra las historias del repositorio</p>
+    </div>
+
+    <a href="{{ route('admin.historias.create') }}"
+       class="admin-add-btn">
+
+        <span>＋</span>
+        Agregar contenido
+
+    </a>
+
 </div>
 
 <div class="search-box mb-4 mx-auto" style="max-width: 400px;">
@@ -43,14 +55,6 @@
   @empty
     <p style="grid-column: 1/-1; text-align: center; color: #666;">No hay historias registradas.</p>
   @endforelse
-
-  <div class="card admin-card">
-    <div class="card-content">
-      <h3>Agregar Contenido</h3>
-      <p>Administre la historia.</p>
-      <a href="{{ route('admin.historias.create') }}" class="btn-admin">Agregar</a>
-    </div>
-  </div>
 
 </div>
 

@@ -48,11 +48,22 @@
 
 @section('content')
 
-<div class="section-title text-center mb-4">
-  <h2>Panel de Entrevistas</h2>
-  <p>Administra las entrevistas publicadas</p>
-</div>
+<div class="admin-header">
 
+    <div class="section-title text-center">
+        <h2>Entrevistas</h2>
+        <p>Administra las entrevistas</p>
+    </div>
+
+    <a href="{{ route('admin.entrevistas.create') }}"
+       class="admin-add-btn">
+
+        <span>＋</span>
+        Agregar contenido
+
+    </a>
+
+</div>
 <div class="feed-container">
   @forelse($entrevistas as $entrevista)
     <div class="feed-card">
@@ -83,13 +94,6 @@
   @endforelse
 </div>
 
-<div class="card admin-card" style="margin-top: 30px;">
-  <div class="card-content">
-    <h3>Agregar Contenido</h3>
-    <p>Administre las entrevistas de la plataforma.</p>
-    <a href="{{ route('admin.entrevistas.create') }}" class="btn-admin">Agregar</a>
-  </div>
-</div>
 
 <div class="image-viewer" id="viewer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;">
     <span id="close-viewer" style="position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; font-weight: bold;">&times;</span>
