@@ -16,6 +16,8 @@ class Historia extends Model
         'titulo',
         'descripcion',
         'imagen',
+        'categoria',
+        'autor',
         'fecha_creacion',
         'fecha_actualizacion',
     ];
@@ -23,5 +25,12 @@ class Historia extends Model
     protected $casts = [
         'fecha_creacion' => 'datetime',
         'fecha_actualizacion' => 'datetime',
+    ];
+
+    public const CATEGORIAS = [
+        'historias'   => 'Historias',
+        'leyendas'    => 'Leyendas',
+        'anecdotas'   => 'Anécdotas',
+        'tradiciones' => 'Tradiciones',
     ];
 }
