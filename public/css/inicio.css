@@ -838,17 +838,45 @@ section {
   }
 }
 
-.tarjeta-inicio-buscable {
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        border-color 0.3s ease;
+
+
+/* Tarjeta encontrada */
+.tarjeta-encontrada{
+    grid-column: 1 / -1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+
+    border: 3px solid #2F9BD8;
+    box-shadow: 0 12px 30px rgba(47,155,216,.25);
+
+    transition: .35s ease;
 }
 
-.tarjeta-inicio-buscable.tarjeta-encontrada {
-    border: 3px solid #2f9bd8 !important;
-    box-shadow:
-        0 0 0 7px rgba(47, 155, 216, 0.16),
-        0 18px 38px rgba(47, 155, 216, 0.38) !important;
-    transform: translateY(-8px) scale(1.025);
+/* Imagen más grande */
+.tarjeta-encontrada .card-img-wrap{
+    width: 35%;
+    flex-shrink: 0;
+}
+
+.tarjeta-encontrada .card-img-wrap img{
+    width:100%;
+    height:320px;
+    object-fit:cover;
+}
+
+/* Texto */
+.tarjeta-encontrada .card-content{
+    width:65%;
+    text-align:left;
+}
+
+.tarjeta-encontrada h3{
+    font-size:2rem;
+}
+
+.tarjeta-encontrada p{
+    font-size:1.05rem;
+    line-height:1.9;
 }

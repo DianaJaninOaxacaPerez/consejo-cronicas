@@ -40,7 +40,14 @@ document.addEventListener("DOMContentLoaded", function () {
         limpiarResaltados();
 
         if (filtro === "") {
-            mostrarTodoElMenu();
+            mostrarTodoElMenu()
+            tarjetasInicio.forEach(function(tarjeta){
+
+        tarjeta.style.display = "";
+        tarjeta.classList.remove("tarjeta-encontrada");
+
+    });
+
             return;
         }
 
@@ -75,18 +82,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // No se oculta ninguna tarjeta
         if (coincidenciasTarjetas.length > 0) {
-            const tarjetaEncontrada = coincidenciasTarjetas[0];
 
-            temporizador = setTimeout(function () {
-                tarjetaEncontrada.classList.add(
-                    "tarjeta-encontrada"
-                );
+    tarjetasInicio.forEach(function(tarjeta){
 
-                tarjetaEncontrada.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
-            }, 200);
+        if(coincidenciasTarjetas.includes(tarjeta)){
+
+            tarjeta.style.display = "";
+            tarjeta.classList.add("tarjeta-encontrada");
+
+        }else{
+
+            tarjeta.style.display = "none";
+
         }
+
+    });
+
+    coincidenciasTarjetas[0].scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}else{
+
+    tarjetasInicio.forEach(function(tarjeta){
+
+        tarjeta.style.display = "";
+        tarjeta.classList.remove("tarjeta-encontrada");
+
+    });
+
+}
     });
 });
