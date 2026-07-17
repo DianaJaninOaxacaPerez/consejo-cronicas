@@ -8,27 +8,48 @@
   <link rel="stylesheet" href="{{ asset('css/verfoto.css') }}">
 
   <style>
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.25rem;
-      margin-top: 1.5rem;
-    }
+    ..gallery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-top:25px;
+}
 
-    .gallery img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.gallery-item-container{
+    width:100%;
+}
 
-    .gallery img:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+.gallery-item-container img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:12px;
+    cursor:pointer;
+    display:block;
+    box-shadow:0 4px 12px rgba(0,0,0,.12);
+    transition:.3s;
+}
+
+.gallery-item-container img:hover{
+    transform:scale(1.03);
+}
+@media (max-width:1200px){
+    .gallery{
+        grid-template-columns:repeat(3,1fr);
     }
+}
+
+@media (max-width:768px){
+    .gallery{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media (max-width:500px){
+    .gallery{
+        grid-template-columns:1fr;
+    }
+}
   </style>
 @endpush
 
@@ -44,26 +65,30 @@
     <input type="text" id="inputBusqueda" class="form-control" placeholder="Buscar por título...">
   </div>
 
-  @forelse($imagenes as $foto)
-  @php $imgDefault = asset('img/default-galeria.png'); @endphp
+  <div class="gallery">
 
-  <div
-    class="gallery-item-container"
-    data-title="{{ $foto->titulo }}"
-    data-description="{{ $foto->descripcion }}"
-  >
-    <img
-      src="{{ $foto->ruta_imagen ? Storage::url($foto->ruta_imagen) : $imgDefault }}"
-      alt="{{ $foto->titulo }}"
-      data-title="{{ $foto->titulo }}"
-      data-description="{{ $foto->descripcion }}"
-      onerror="this.onerror=null;this.src='{{ $imgDefault }}';"
+@forelse($imagenes as $foto)
+    @php $imgDefault = asset('img/default-galeria.png'); @endphp
+
+    <div
+        class="gallery-item-container"
+        data-title="{{ $foto->titulo }}"
+        data-description="{{ $foto->descripcion }}"
     >
-  </div>
+        <img
+            src="{{ $foto->ruta_imagen ? Storage::url($foto->ruta_imagen) : $imgDefault }}"
+            alt="{{ $foto->titulo }}"
+            data-title="{{ $foto->titulo }}"
+            data-description="{{ $foto->descripcion }}"
+            onerror="this.onerror=null;this.src='{{ $imgDefault }}';"
+        >
+    </div>
+
 @empty
-      <p class="text-center">Próximamente más imágenes en la galería.</p>
-    @endforelse
-  </div>
+    <p class="text-center">Próximamente más imágenes en la galería.</p>
+@endforelse
+
+</div>
 
 </section>
 
