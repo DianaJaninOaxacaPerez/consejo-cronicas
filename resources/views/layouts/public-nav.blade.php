@@ -27,7 +27,7 @@
 
         <div class="nav-actions">
           <div class="search-box">
-            <input type="text" id="inputBusqueda" placeholder="Buscar por título...">
+            <input type="text" id="buscadorMenu" placeholder="Buscar por título..." autocomplete="off">
           </div>
 
           <a href="{{ route('login') }}" class="btn-login">Iniciar sesión</a>

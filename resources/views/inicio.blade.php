@@ -18,7 +18,8 @@
   </div>
 
   <div class="cards">
-  <div class="card">
+
+  <div class="card tarjeta-inicio-buscable">
   <div class="card-img-wrap">
     <img src="{{ asset('img/danzas.jpeg') }}" alt="Misión">
   </div>
@@ -31,7 +32,7 @@
         </p>
       </div>
     </div>
-    <div class="card">
+    <div class="card tarjeta-inicio-buscable">
       <div class="card-img-wrap">
       <img src="{{ asset('img/reloj.webp') }}" alt="Visión">
       </div>
@@ -45,7 +46,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card tarjeta-inicio-buscable">
       <div class="card-img-wrap">
       <img src="{{ asset('img/Huejutla, Hidalgo.jpg') }}" alt="Propósito">
         </div>
@@ -59,7 +60,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card tarjeta-inicio-buscable">
       <div class="card-img-wrap">
       <img src="https://images.unsplash.com/photo-1516307365426-bea591f05011?q=80&w=1200&auto=format&fit=crop" alt="Identidad">
         </div>
