@@ -61,6 +61,16 @@
       <textarea name="descripcion" required rows="5">{{ old('descripcion', $foto->descripcion) }}</textarea>
     </div>
 
+    <div class="input-group">
+      <label>Categoría</label>
+      <select name="categoria" required>
+        <option value="">Selecciona una categoría</option>
+        @foreach($categorias as $valor => $etiqueta)
+          <option value="{{ $valor }}" {{ old('categoria', $foto->categoria) === $valor ? 'selected' : '' }}>{{ $etiqueta }}</option>
+        @endforeach
+      </select>
+    </div>
+
     @if($foto->ruta_imagen)
     <div class="input-group">
       <label>Imagen actual</label>

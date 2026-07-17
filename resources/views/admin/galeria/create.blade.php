@@ -32,6 +32,16 @@
       </div>
 
       <div class="input-group">
+        <label>Categoría</label>
+        <select name="categoria" required>
+          <option value="">Selecciona una categoría</option>
+          @foreach($categorias as $valor => $etiqueta)
+            <option value="{{ $valor }}" {{ old('categoria') === $valor ? 'selected' : '' }}>{{ $etiqueta }}</option>
+          @endforeach
+        </select>
+      </div>
+
+      <div class="input-group">
         <label>Seleccionar imagen</label>
         <input type="file" name="imagen" accept="image/*" required>
       </div>

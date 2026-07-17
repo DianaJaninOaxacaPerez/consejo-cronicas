@@ -56,10 +56,31 @@ Route::get('/cronicas', function () {
     $cronicas = \App\Models\Cronica::orderByDesc('id_cronica')->get();
     return view('cronicas', compact('cronicas'));
 })->name('cronicas');
-Route::get('/galeria', function () {
-    $imagenes = Galeria::orderByDesc('id_galeria')->get();
-    return view('galeria', compact('imagenes'));
+
+Route::get('/galeria', function (\Illuminate\Http\Request $request) {
+
+    $query = Galeria::query();
+
+    if ($request->filled('titulo')) {
+        $query->where('titulo', 'like', '%'.$request->titulo.'%');
+    }
+    if ($request->filled('descripcion')) {
+        $query->where('descripcion', 'like', '%'.$request->descripcion.'%');
+    }
+    if ($request->filled('categoria')) {
+        $query->where('categoria', $request->categoria);
+    }
+
+    $imagenes = $query->orderByDesc('id_galeria')->get();
+
+    return view('galeria', [
+        'imagenes'   => $imagenes,
+        'categorias' => Galeria::CATEGORIAS,
+    ]);
+
 })->name('galeria');
+
+
 Route::get('/eventos', function () {
     $eventos = Evento::orderByDesc('id_evento')->get();
     return view('eventos', compact('eventos'));
