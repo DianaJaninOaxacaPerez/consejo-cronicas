@@ -13,14 +13,14 @@
       <div class="collapse navbar-collapse" id="navbarContent">
 
         <ul class="navbar-nav mx-auto text-center menu">
-          <li class="nav-item"><a class="nav-link" href="{{ route('inicio') }}">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('historia') }}">Historia</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('cronicas') }}">Crónicas</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('galeria') }}">Galería</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('eventos') }}">Eventos</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('noticias') }}">Noticias</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('entrevistas') }}">Entrevistas</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('perfiles') }}">Perfiles</a></li>
+          <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('inicio') }}">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('historia') }}">Historia</a></li>
+        <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('cronicas') }}">Crónicas</a></li>
+        <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('galeria') }}">Galería</a></li>
+        <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('eventos') }}">Eventos</a></li>
+        <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('noticias') }}">Noticias</a></li>
+        <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('entrevistas') }}">Entrevistas</a></li>
+        <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('perfiles') }}">Perfiles</a></li>
         </ul>
 
         <div class="menu-title d-lg-none">CRÓNICA HUEJUTLENSE</div>

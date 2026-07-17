@@ -42,42 +42,42 @@
 
       <ul class="menu nav flex-column">
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('inicio') }}">
+          <a class="nav-link opcion-menu-buscable" href="{{ route('inicio') }}">
             <i class="fa-solid fa-house"></i> Inicio
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('historia') }}">
+           <a class="nav-link opcion-menu-buscable" href="{{ route('historia') }}">
             <i class="fa-solid fa-landmark"></i> Historia
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('cronicas') }}">
+          <a class="nav-link opcion-menu-buscable" href="{{ route('cronicas') }}">
             <i class="fa-solid fa-scroll"></i> Crónicas
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('galeria') }}">
+          <a class="nav-link opcion-menu-buscable" href="{{ route('galeria') }}">
             <i class="fa-solid fa-images"></i> Galería
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('eventos') }}">
+           <a class="nav-link opcion-menu-buscable" href="{{ route('eventos') }}">
             <i class="fa-solid fa-calendar-days"></i> Eventos
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('noticias') }}">
+          <a class="nav-link opcion-menu-buscable" href="{{ route('noticias') }}">
             <i class="fa-solid fa-newspaper"></i> Noticias
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('entrevistas') }}">
+          <a class="nav-link opcion-menu-buscable" href="{{ route('entrevistas') }}">
             <i class="fa-solid fa-microphone-lines"></i> Entrevistas
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('perfiles') }}">
+          <a class="nav-link opcion-menu-buscable" href="{{ route('perfiles') }}">
           <i class="fa-solid fa-users"></i> Perfiles
           </a>
         </li>
