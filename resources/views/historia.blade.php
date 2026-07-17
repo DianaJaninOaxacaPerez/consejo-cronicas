@@ -20,7 +20,7 @@
       type="text"
       id="inputBusqueda"
       class="form-control"
-      placeholder="Buscar por títulao..."
+      placeholder="Buscar por título..."
     >
   </div>
 
