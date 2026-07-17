@@ -3,29 +3,27 @@
 @section('title', 'Crónicas - Voces y crónicas Huejutlenses')
 
 @push('styles')
-  <link rel="stylesheet" href="{{ asset('css/catalogo.css') }}">
+  <link
+    rel="stylesheet"
+    href="{{ asset('css/catalogo.css') }}?v={{ filemtime(public_path('css/catalogo.css')) }}"
+  >
 
   <style>
-    .cronica-card img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-      border-radius: 12px 12px 0 0;
-      display: block;
-    }
-
     .btn-pill.btn-leer-cronica {
       display: inline-block;
       padding: 0.55rem 1.6rem;
-      border-radius: 999px;
       border: none;
-      background: #1565C0;
-      color: #fff;
-      font-weight: 600;
+      border-radius: 999px;
+      background: #1565c0;
+      color: #ffffff;
       font-size: 0.95rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
       box-shadow: 0 3px 10px rgba(21, 101, 192, 0.25);
+      transition:
+        background-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
     .btn-pill.btn-leer-cronica:hover {
@@ -50,40 +48,89 @@
   </div>
 
   <div class="search-box mb-4 mx-auto" style="max-width: 400px;">
-    <input type="text" id="inputBusqueda" class="form-control" placeholder="Buscar por título...">
+    <input
+      type="text"
+      id="inputBusqueda"
+      class="form-control"
+      placeholder="Buscar por título o autor..."
+    >
   </div>
 
-  <div class="cards-cronicas">
+  <div class="cronicas-grid">
+
     @forelse($cronicas as $cronica)
-      @php $imgDefault = asset('img/default-cronica.png'); @endphp
-      <div class="card cronica-card">
-        <img src="{{ $cronica->imagen ? Storage::url($cronica->imagen) : $imgDefault }}"
-             alt="{{ $cronica->titulo }}"
-             onerror="this.onerror=null;this.src='{{ $imgDefault }}';">
 
-        <div class="card-content">
-          <span class="cronica-fecha">{{ $cronica->fecha->translatedFormat('d M Y') }}</span>
+      @php
+        $imgDefault = asset('img/default-cronica.png');
+      @endphp
 
-          <h3>{{ $cronica->titulo }}</h3>
-          <h4>Por: {{ $cronica->autor }}</h4>
+      <article class="cronica-card">
 
-          <p class="cronica-resumen">{{ $cronica->resumen }}</p>
+        <div class="cronica-card__imagen-contenedor">
+          <img
+            src="{{ $cronica->imagen
+                ? Storage::url($cronica->imagen)
+                : $imgDefault }}"
+            alt="{{ $cronica->titulo }}"
+            class="cronica-card__imagen"
+            onerror="this.onerror=null;this.src='{{ $imgDefault }}';"
+          >
+        </div>
+
+        <div class="cronica-card__contenido">
+
+          <span class="cronica-etiqueta">
+            Crónica
+          </span>
+
+          <h3>
+            {{ $cronica->titulo }}
+          </h3>
+
+          <h4>
+            Por: {{ $cronica->autor }}
+          </h4>
+
+          <p class="cronica-resumen">
+            {{ $cronica->resumen }}
+          </p>
+
+          <small class="cronica-card__fecha">
+            {{ $cronica->fecha
+                ? $cronica->fecha->translatedFormat('d M Y')
+                : 'Sin fecha' }}
+          </small>
 
           <div class="acciones-cronica">
-            <button class="btn-pill btn-leer-cronica"
+
+            <button
+              type="button"
+              class="btn-pill btn-leer-cronica"
               onclick="mostrarCronica(this)"
               data-titulo="{{ $cronica->titulo }}"
               data-autor="{{ $cronica->autor }}"
-              data-fecha="{{ $cronica->fecha->translatedFormat('d M Y') }}"
-              data-contenido="{{ $cronica->contenido }}">
+              data-fecha="{{ $cronica->fecha
+                  ? $cronica->fecha->translatedFormat('d M Y')
+                  : '' }}"
+              data-contenido="{{ $cronica->contenido }}"
+            >
               Leer Crónica
             </button>
+
           </div>
+
         </div>
-      </div>
+
+      </article>
+
     @empty
-      <p class="text-center">Próximamente más crónicas de nuestra región.</p>
+
+      <p class="cronicas-vacio">
+        Próximamente más crónicas de nuestra región.
+      </p>
+
     @endforelse
+
   </div>
 
 </section>
@@ -91,6 +138,11 @@
 @endsection
 
 @push('scripts')
-  <script src="{{ asset('js/leercronica.js') }}?v={{ filemtime(public_path('js/leercronica.js')) }}"></script>
-  <script src="{{ asset('js/buscador.js') }}?v={{ filemtime(public_path('js/buscador.js')) }}"></script>
+  <script
+    src="{{ asset('js/leercronica.js') }}?v={{ filemtime(public_path('js/leercronica.js')) }}"
+  ></script>
+
+  <script
+    src="{{ asset('js/buscador.js') }}?v={{ filemtime(public_path('js/buscador.js')) }}"
+  ></script>
 @endpush
