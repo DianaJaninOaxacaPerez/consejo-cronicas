@@ -15,10 +15,43 @@ use App\Models\Cronista;
 |--------------------------------------------------------------------------
 */
 Route::view('/', 'inicio')->name('inicio');
-Route::get('/historia', function () {
-    $historias = Historia::orderByDesc('fecha_creacion')->get();
-    return view('historia', compact('historias'));
+
+Route::get('/historia', function (\Illuminate\Http\Request $request) {
+
+    $query = Historia::query();
+
+    if ($request->filled('q')) {
+        $query->where('titulo', 'like', '%'.$request->q.'%');
+    }
+
+    if ($request->filled('categoria')) {
+        $query->where('categoria', $request->categoria);
+    }
+
+    if ($request->filled('autor')) {
+        $query->where('autor', 'like', '%'.$request->autor.'%');
+    }
+
+    if ($request->filled('desde')) {
+        $query->whereDate('fecha_creacion', '>=', $request->desde);
+    }
+    if ($request->filled('hasta')) {
+        $query->whereDate('fecha_creacion', '<=', $request->hasta);
+    }
+
+    $orden = $request->get('orden', 'reciente');
+    $query->orderBy('fecha_creacion', $orden === 'antigua' ? 'asc' : 'desc');
+
+    $historias = $query->paginate(9)->withQueryString();
+
+    return view('historia', [
+        'historias'  => $historias,
+        'categorias' => Historia::CATEGORIAS,
+    ]);
+
 })->name('historia');
+
+
 Route::get('/cronicas', function () {
     $cronicas = \App\Models\Cronica::orderByDesc('id_cronica')->get();
     return view('cronicas', compact('cronicas'));
