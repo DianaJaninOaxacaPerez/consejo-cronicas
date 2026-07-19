@@ -51,11 +51,20 @@
         <h3><i class="fa-solid fa-user-shield"></i> Usuarios</h3>
         <p>Administra las cuentas de acceso al panel.</p>
     </a>
+    <a href="{{ route('admin.videos.index') }}" class="dashboard-card">
+        <div class="dashboard-card-img"><img src="{{ asset('img/dashboard/videos.svg') }}" alt="Videos"></div>
+        <h3><i class="fa-solid fa-video"></i> Videos</h3>
+        <p>Sube videos y enlaces de redes sociales.</p>
+    </a>
+
     <a href="{{ route('admin.configuracion.edit') }}" class="dashboard-card">
         <div class="dashboard-card-img"><img src="{{ asset('img/dashboard/configuracion.svg') }}" alt="Configuración"></div>
         <h3><i class="fa-solid fa-gear"></i> Editar logo y datos</h3>
         <p>Edita el logo y los datos de la página.</p>
     </a>
+
+
+
 </div>
 @endsection
 @push('styles')
