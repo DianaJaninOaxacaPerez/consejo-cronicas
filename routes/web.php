@@ -109,6 +109,14 @@ Route::get('/perfiles/{id}', function ($id) {
     $cronista = Cronista::findOrFail($id);
     return view('ver_perfiles', compact('cronista'));  // ← cambia aquí
 })->name('perfiles.show');
+Route::get('/videos', function () {
+    $videos = \App\Models\Video::orderByDesc('id_video')->get();
+    return view('videos', compact('videos'));
+})->name('videos');
+Route::get('/videos/{id}', function ($id) {
+    $video = \App\Models\Video::findOrFail($id);
+    return view('ver_video', compact('video'));
+})->name('videos.show');
 
 
 /*Rutas administrativas (back - Livewire Starter Kit*/
