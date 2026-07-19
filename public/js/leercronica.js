@@ -31,6 +31,18 @@ function mostrarCronica(botonLeer) {
     // Expande la tarjeta seleccionada.
     tarjetaActual.classList.add("cronica-card--abierta");
 
+    const imagenContenedor =
+    tarjetaActual.querySelector(".cronica-card__imagen-contenedor");
+
+const autor =
+    cardContent.querySelector("h4");
+
+if (imagenContenedor && autor) {
+    autor.insertAdjacentElement(
+        "afterend",
+        imagenContenedor
+    );
+}
     // Oculta el botón Leer Crónica.
     if (accionesLeer) {
         accionesLeer.hidden = true;
@@ -101,6 +113,15 @@ function cerrarCronica(botonVolver) {
 
     // Quita el ancho completo.
     tarjetaActual.classList.remove("cronica-card--abierta");
+    const imagenContenedor =
+    tarjetaActual.querySelector(".cronica-card__imagen-contenedor");
+
+if (imagenContenedor) {
+    tarjetaActual.insertBefore(
+        imagenContenedor,
+        tarjetaActual.firstChild
+    );
+}
 
     // Muestra nuevamente todas las tarjetas.
     todasLasTarjetas.forEach(function (tarjeta) {
