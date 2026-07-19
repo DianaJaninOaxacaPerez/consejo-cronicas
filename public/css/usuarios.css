@@ -202,3 +202,25 @@
 .estado-inactivo {
   color: red;
 }
+
+.password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-field input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #888;
+}
+
+.toggle-password:hover {
+    color: #333;
+}

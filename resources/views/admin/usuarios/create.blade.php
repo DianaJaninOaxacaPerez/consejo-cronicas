@@ -26,11 +26,17 @@
     @error('correo') <p class="form-error">{{ $message }}</p> @enderror
 
     <label>Contraseña</label>
-    <input type="password" name="password" required>
-    @error('password') <p class="form-error">{{ $message }}</p> @enderror
+        <div class="password-field">
+        <input type="password" name="password" id="password" required>
+        <i class="fa-solid fa-eye toggle-password" data-target="password"></i>
+        </div>
+        @error('password') <p class="form-error">{{ $message }}</p> @enderror
 
     <label>Confirmar contraseña</label>
-    <input type="password" name="password_confirmation" required>
+    <div class="password-field">
+        <input type="password" name="password_confirmation" id="password_confirmation" required>
+        <i class="fa-solid fa-eye toggle-password" data-target="password_confirmation"></i>
+    </div>
 
     <label>Rol</label>
     <select name="id_rol" required>
@@ -48,5 +54,19 @@
         <a href="{{ route('admin.usuarios.index') }}" class="btn-editar">Cancelar</a>
     </div>
 </form>
+
+@push('scripts')
+<script>
+document.querySelectorAll('.toggle-password').forEach(icon => {
+    icon.addEventListener('click', function () {
+        const input = document.getElementById(this.dataset.target);
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+});
+</script>
+@endpush
 
 @endsection
