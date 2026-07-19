@@ -1,26 +1,49 @@
 function mostrarCronica(botonLeer) {
+    const tarjetaActual = botonLeer.closest(".cronica-card");
     const cardContent = botonLeer.closest(".cronica-card__contenido");
+    const contenedor = botonLeer.closest(".cronicas-grid");
 
-    if (!cardContent) {
-        console.error("No se encontró .cronica-card__contenido");
+    if (!tarjetaActual || !cardContent || !contenedor) {
+        console.error("No se encontró la estructura de la crónica.");
         return;
     }
 
-    const accionesLeer = botonLeer.closest(".acciones-cronica");
-    let contenidoDiv = cardContent.querySelector(".contenido-cronica");
+    const todasLasTarjetas =
+        contenedor.querySelectorAll(".cronica-card");
 
-    // Ocultar el botón Leer Crónica.
+    let contenidoDiv =
+        cardContent.querySelector(".contenido-cronica");
+
+    const accionesLeer =
+        botonLeer.closest(".acciones-cronica");
+
+    // Oculta las demás tarjetas.
+    todasLasTarjetas.forEach(function (tarjeta) {
+        if (tarjeta !== tarjetaActual) {
+            tarjeta.style.setProperty(
+                "display",
+                "none",
+                "important"
+            );
+        }
+    });
+
+    // Expande la tarjeta seleccionada.
+    tarjetaActual.classList.add("cronica-card--abierta");
+
+    // Oculta el botón Leer Crónica.
     if (accionesLeer) {
         accionesLeer.hidden = true;
     }
 
-    // Crear el contenido únicamente la primera vez.
+    // Crea el contenido solo la primera vez.
     if (!contenidoDiv) {
         contenidoDiv = document.createElement("div");
         contenidoDiv.className = "contenido-cronica";
 
         const textoLargo =
-            botonLeer.dataset.contenido || "Contenido no disponible.";
+            botonLeer.dataset.contenido ||
+            "Contenido no disponible.";
 
         const parrafo = document.createElement("p");
         parrafo.className = "contenido-cronica__texto";
@@ -32,7 +55,8 @@ function mostrarCronica(botonLeer) {
 
         const botonVolver = document.createElement("button");
         botonVolver.type = "button";
-        botonVolver.className = "btn-pill btn-cerrar-cronica";
+        botonVolver.className =
+            "btn-pill btn-cerrar-cronica";
         botonVolver.textContent = "← Volver";
 
         botonVolver.addEventListener("click", function () {
@@ -45,35 +69,48 @@ function mostrarCronica(botonLeer) {
         cardContent.appendChild(contenidoDiv);
     }
 
-    // Mostrar el contenido completo.
     contenidoDiv.hidden = false;
 
-    // Desplazar la vista hasta el texto completo.
     setTimeout(function () {
-        contenidoDiv.scrollIntoView({
+        tarjetaActual.scrollIntoView({
             behavior: "smooth",
-            block: "center"
+            block: "start"
         });
     }, 100);
 }
 
 function cerrarCronica(botonVolver) {
-    const contenidoDiv = botonVolver.closest(".contenido-cronica");
+    const contenidoDiv =
+        botonVolver.closest(".contenido-cronica");
 
-    if (!contenidoDiv) {
+    const tarjetaActual =
+        botonVolver.closest(".cronica-card");
+
+    const contenedor =
+        botonVolver.closest(".cronicas-grid");
+
+    if (!contenidoDiv || !tarjetaActual || !contenedor) {
         return;
     }
 
-    const cardContent = contenidoDiv.closest(
-        ".cronica-card__contenido"
-    );
+    const todasLasTarjetas =
+        contenedor.querySelectorAll(".cronica-card");
 
-    const card = contenidoDiv.closest(".cronica-card");
-
-    // Ocultar texto completo.
+    // Oculta el contenido largo.
     contenidoDiv.hidden = true;
 
-    // Mostrar nuevamente Leer Crónica.
+    // Quita el ancho completo.
+    tarjetaActual.classList.remove("cronica-card--abierta");
+
+    // Muestra nuevamente todas las tarjetas.
+    todasLasTarjetas.forEach(function (tarjeta) {
+        tarjeta.style.removeProperty("display");
+    });
+
+    // Muestra otra vez el botón Leer Crónica.
+    const cardContent =
+        tarjetaActual.querySelector(".cronica-card__contenido");
+
     if (cardContent) {
         const botonLeer =
             cardContent.querySelector(".btn-leer-cronica");
@@ -86,13 +123,10 @@ function cerrarCronica(botonVolver) {
         }
     }
 
-    // Regresar a la tarjeta.
-    if (card) {
-        setTimeout(function () {
-            card.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-        }, 100);
-    }
+    setTimeout(function () {
+        tarjetaActual.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }, 100);
 }

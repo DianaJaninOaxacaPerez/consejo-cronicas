@@ -881,3 +881,55 @@
     }
 
 }
+/* Crónica abierta: ocupa toda la fila */
+.cronicas-grid .cronica-card--abierta {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+/* Diseño horizontal al abrir */
+.cronica-card--abierta {
+    display: grid;
+    grid-template-columns: 38% 62%;
+    align-items: stretch;
+}
+
+.cronica-card--abierta .cronica-card__imagen-contenedor {
+    height: 100%;
+    min-height: 420px;
+}
+
+.cronica-card--abierta .cronica-card__imagen {
+    height: 100%;
+    object-fit: contain;
+}
+
+.cronica-card--abierta .cronica-card__contenido {
+    justify-content: center;
+    padding: 35px;
+}
+
+.contenido-cronica {
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid #dce6ec;
+}
+
+.contenido-cronica__texto {
+    color: #52626d;
+    font-size: 1rem;
+    line-height: 1.85;
+    text-align: justify;
+    white-space: pre-line;
+}
+
+/* En celular vuelve a diseño vertical */
+@media (max-width: 850px) {
+    .cronica-card--abierta {
+        grid-template-columns: 1fr;
+    }
+
+    .cronica-card--abierta .cronica-card__imagen-contenedor {
+        min-height: 240px;
+    }
+}
