@@ -137,6 +137,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('configuracion', [\App\Http\Controllers\Admin\ConfiguracionController::class, 'edit'])->name('configuracion.edit');
         Route::post('configuracion', [\App\Http\Controllers\Admin\ConfiguracionController::class, 'update'])->name('configuracion.update');
         Route::resource('cronistas', \App\Http\Controllers\Admin\CronistaController::class)->parameters(['cronistas' => 'cronista']);
+        // Nueva ruta de usuarios
+         Route::resource('usuarios', \App\Http\Controllers\Admin\UsuarioController::class)->parameters(['usuarios' => 'usuario']);
 
     });
 

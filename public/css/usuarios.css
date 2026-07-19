@@ -195,3 +195,10 @@
   color: #c62828;
   border: 1px solid #ffcdd2;
 }
+
+.estado-activo {
+  color: green;
+}
+.estado-inactivo {
+  color: red;
+}

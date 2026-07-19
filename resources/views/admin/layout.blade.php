@@ -19,7 +19,6 @@
         <img src="{{ asset('img/' . $config->logo) }}" alt="Logo">
       </a>
     </div>
-
     <ul class="admin-menu">
       <li><a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
       <li><a href="{{ route('admin.cronicas.index') }}" class="{{ request()->routeIs('admin.cronicas.*') ? 'active' : '' }}"><i class="fa-solid fa-scroll"></i> Crónicas</a></li>
@@ -30,7 +29,9 @@
       <li><a href="{{ route('admin.entrevistas.index') }}" class="{{ request()->routeIs('admin.entrevistas.*') ? 'active' : '' }}"><i class="fa-solid fa-microphone-lines"></i> Entrevistas</a></li>
       <li><a href="{{ route('admin.configuracion.edit') }}" class="{{ request()->routeIs('admin.configuracion.*') ? 'active' : '' }}"><i class="fa-solid fa-gear"></i> Configuración</a></li>
       <li><a href="{{ route('admin.cronistas.index') }}" class="{{ request()->routeIs('admin.cronistas.*') ? 'active' : '' }}"><i class="fa-solid fa-users"></i> Perfiles</a></li>
+      <li><a href="{{ route('admin.usuarios.index') }}" class="{{ request()->routeIs('admin.usuarios.*') ? 'active' : '' }}"><i class="fa-solid fa-user-shield"></i> Usuarios</a></li>
     </ul>
+
 
     <form method="POST" action="{{ route('logout') }}" class="logout-form">
       @csrf
