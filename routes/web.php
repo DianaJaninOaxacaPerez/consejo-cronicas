@@ -138,7 +138,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('configuracion', [\App\Http\Controllers\Admin\ConfiguracionController::class, 'update'])->name('configuracion.update');
         Route::resource('cronistas', \App\Http\Controllers\Admin\CronistaController::class)->parameters(['cronistas' => 'cronista']);
         // Nueva ruta de usuarios
-         Route::resource('usuarios', \App\Http\Controllers\Admin\UsuarioController::class)->parameters(['usuarios' => 'usuario']);
+        Route::resource('usuarios', \App\Http\Controllers\Admin\UsuarioController::class)->parameters(['usuarios' => 'usuario']);
+        Route::resource('videos', \App\Http\Controllers\Admin\VideoController::class);
 
     });
 
