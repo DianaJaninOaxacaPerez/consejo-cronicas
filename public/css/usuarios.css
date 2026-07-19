@@ -224,3 +224,97 @@
 .toggle-password:hover {
     color: #333;
 }
+
+.usuario-form-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.usuario-form-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 40px 45px;
+    max-width: 520px;
+    width: 100%;
+}
+
+.usuario-form-card .section-title h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    margin-bottom: 4px;
+}
+
+.usuario-form-card .section-title p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.admin-form label {
+    display: block;
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.admin-form input,
+.admin-form select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #dfe3e8;
+    border-radius: 10px;
+    background: #f4f7ff;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.admin-form input:focus,
+.admin-form select:focus {
+    outline: none;
+    border-color: #4a7fe0;
+    background: #fff;
+}
+
+.form-error {
+    color: #d9534f;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-field input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #888;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+.btn-cancelar {
+    color: #666;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    align-self: center;
+}
+
+.btn-cancelar:hover {
+    text-decoration: underline;
+}
