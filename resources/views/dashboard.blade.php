@@ -46,7 +46,11 @@
         <h3><i class="fa-solid fa-users"></i> Perfiles</h3>
         <p>Gestiona al equipo del consejo.</p>
     </a>
-
+    <a href="{{ route('admin.usuarios.index') }}" class="dashboard-card">
+        <div class="dashboard-card-img"><img src="{{ asset('img/dashboard/usuarios.svg') }}" alt="Usuarios"></div>
+        <h3><i class="fa-solid fa-user-shield"></i> Usuarios</h3>
+        <p>Administra las cuentas de acceso al panel.</p>
+    </a>
     <a href="{{ route('admin.configuracion.edit') }}" class="dashboard-card">
         <div class="dashboard-card-img"><img src="{{ asset('img/dashboard/configuracion.svg') }}" alt="Configuración"></div>
         <h3><i class="fa-solid fa-gear"></i> Editar logo y datos</h3>
