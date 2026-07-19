@@ -2,11 +2,27 @@
 
 @section('title', 'Crónicas')
 
+@push('styles')
+  <link rel="stylesheet" href="{{ asset('css/catalogo.css') }}">
+@endpush
+
 @section('content')
 
-<div class="section-title text-center mb-4">
-  <h2>Crónicas</h2>
-  <p>Administra las crónicas registradas</p>
+<div class="admin-header">
+
+  <div class="section-title text-center">
+    <h2>Crónicas</h2>
+    <p>Administra las crónicas registradas</p>
+  </div>
+
+  <a
+    href="{{ route('admin.cronicas.create') }}"
+    class="admin-add-btn"
+  >
+    <span>＋</span>
+    Nueva crónica
+  </a>
+
 </div>
 
 <div class="search-box mb-4 mx-auto" style="max-width: 400px;">
@@ -18,105 +34,96 @@
   >
 </div>
 
-<div class="admin-card">
+<p class="cronicas-total">
+  {{ $cronicas->total() }} crónica(s) registrada(s)
+</p>
 
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <span style="font-size:.9rem;color:var(--a-color2);">
-      {{ $cronicas->total() }} crónica(s) registrada(s)
-    </span>
+<div class="cronicas-grid cronicas-grid-admin">
 
-    <a href="{{ route('admin.cronicas.create') }}"
-       class="btn-admin btn-admin-primary">
-      <i class="fa-solid fa-plus"></i> Nueva crónica
-    </a>
-  </div>
+  @forelse($cronicas as $cronica)
 
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>Imagen</th>
-        <th>Título</th>
-        <th>Autor</th>
-        <th>Fecha</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
+    @php
+      $imgDefault = asset('img/default-cronica.png');
+    @endphp
 
-    <tbody>
+    <article class="cronica-card cronica-card-admin">
 
-      @forelse($cronicas as $cronica)
+      <div class="cronica-card__imagen-contenedor">
+        <img
+          src="{{ $cronica->imagen
+              ? Storage::url($cronica->imagen)
+              : $imgDefault }}"
+          alt="{{ $cronica->titulo }}"
+          class="cronica-card__imagen"
+          onerror="this.onerror=null;this.src='{{ $imgDefault }}';"
+        >
+      </div>
 
-        <tr class="fila-cronica">
+      <div class="cronica-card__contenido">
 
-          <td>
-            @if($cronica->imagen)
-              <img
-                src="{{ Storage::url($cronica->imagen) }}"
-                class="thumb"
-                alt="{{ $cronica->titulo }}"
-              >
-            @else
-              <span style="color:#aaa;font-size:.8rem;">
-                Sin imagen
-              </span>
-            @endif
-          </td>
+        <span class="cronica-etiqueta">
+          Crónica
+        </span>
 
-          <td>{{ $cronica->titulo }}</td>
+        <h3>{{ $cronica->titulo }}</h3>
 
-          <td>{{ $cronica->autor }}</td>
+        <h4>
+          Por: {{ $cronica->autor }}
+        </h4>
 
-          <td>
-            {{ $cronica->fecha
-                ? $cronica->fecha->format('d/m/Y')
-                : '—' }}
-          </td>
+        <p class="cronica-card__resumen">
+          {{ \Illuminate\Support\Str::limit($cronica->resumen, 220) }}
+        </p>
 
-          <td>
-            <a
-              href="{{ route('admin.cronicas.edit', $cronica) }}"
-              class="btn-admin btn-admin-outline"
+        <small class="cronica-card__fecha">
+          {{ $cronica->fecha
+              ? $cronica->fecha->translatedFormat('d M Y')
+              : 'Sin fecha' }}
+        </small>
+
+        <div class="cronica-admin-acciones">
+
+          <a
+            href="{{ route('admin.cronicas.edit', $cronica) }}"
+            class="btn-admin-cronica btn-editar-cronica"
+          >
+            Editar
+          </a>
+
+          <form
+            action="{{ route('admin.cronicas.destroy', $cronica) }}"
+            method="POST"
+            onsubmit="return confirm('¿Seguro que quieres eliminar esta crónica?');"
+          >
+            @csrf
+            @method('DELETE')
+
+            <button
+              type="submit"
+              class="btn-admin-cronica btn-eliminar-cronica"
             >
-              Editar
-            </a>
+              Eliminar
+            </button>
+          </form>
 
-            <form
-              action="{{ route('admin.cronicas.destroy', $cronica) }}"
-              method="POST"
-              style="display:inline-block;"
-              onsubmit="return confirm('¿Seguro que quieres eliminar esta crónica?');"
-            >
-              @csrf
-              @method('DELETE')
+        </div>
 
-              <button
-                type="submit"
-                class="btn-admin btn-admin-danger"
-              >
-                Eliminar
-              </button>
-            </form>
-          </td>
+      </div>
 
-        </tr>
+    </article>
 
-      @empty
+  @empty
 
-        <tr>
-          <td colspan="5" class="text-center py-4">
-            No hay crónicas registradas aún.
-          </td>
-        </tr>
+    <p class="cronicas-vacio">
+      No hay crónicas registradas aún.
+    </p>
 
-      @endforelse
+  @endforelse
 
-    </tbody>
-  </table>
+</div>
 
-  <div class="mt-3">
-    {{ $cronicas->links() }}
-  </div>
-
+<div class="mt-4">
+  {{ $cronicas->links() }}
 </div>
 
 @endsection
