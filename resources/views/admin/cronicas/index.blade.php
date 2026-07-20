@@ -25,14 +25,55 @@
 
 </div>
 
-<div class="search-box mb-4 mx-auto" style="max-width: 400px;">
+<form
+  method="GET"
+  action="{{ route('admin.cronicas.index') }}"
+  class="filtros-cronicas"
+>
+  <span class="filtros-cronicas__label">
+    Filtros
+  </span>
+
   <input
     type="text"
-    id="inputBusqueda"
-    class="form-control"
-    placeholder="Buscar por título o autor..."
+    name="titulo"
+    class="filtros-cronicas__input"
+    placeholder="Título de la crónica"
+    value="{{ request('titulo') }}"
   >
-</div>
+
+  <input
+    type="text"
+    name="autor"
+    class="filtros-cronicas__input"
+    placeholder="Autor"
+    value="{{ request('autor') }}"
+  >
+
+  <input
+    type="date"
+    name="fecha"
+    class="filtros-cronicas__input"
+    value="{{ request('fecha') }}"
+  >
+
+  <button
+    type="submit"
+    class="filtros-cronicas__btn"
+    title="Aplicar filtros"
+  >
+    +
+  </button>
+
+  @if(request()->anyFilled(['titulo', 'autor', 'fecha']))
+    <a
+      href="{{ route('admin.cronicas.index') }}"
+      class="filtros-cronicas__limpiar"
+    >
+      Limpiar filtros
+    </a>
+  @endif
+</form>
 
 <p class="cronicas-total">
   {{ $cronicas->total() }} crónica(s) registrada(s)
@@ -127,7 +168,3 @@
 </div>
 
 @endsection
-
-@push('scripts')
-  <script src="{{ asset('js/buscador.js') }}?v={{ filemtime(public_path('js/buscador.js')) }}"></script>
-@endpush

@@ -10,11 +10,43 @@ use Illuminate\Http\Request;
 class CronicaController extends Controller
 {
     // Muestra el listado de crónicas (equivale a cronicasadmin.php)
-    public function index()
-    {
-        $cronicas = Cronica::orderBy('fecha', 'desc')->paginate(10);
-        return view('admin.cronicas.index', compact('cronicas'));
+   public function index(Request $request)
+{
+    $query = Cronica::query();
+
+    // Filtrar por título
+    if ($request->filled('titulo')) {
+        $query->where(
+            'titulo',
+            'like',
+            '%' . $request->titulo . '%'
+        );
     }
+
+    // Filtrar por autor
+    if ($request->filled('autor')) {
+        $query->where(
+            'autor',
+            'like',
+            '%' . $request->autor . '%'
+        );
+    }
+
+    // Filtrar por fecha
+    if ($request->filled('fecha')) {
+        $query->whereDate(
+            'fecha',
+            $request->fecha
+        );
+    }
+
+    $cronicas = $query
+        ->orderBy('fecha', 'desc')
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('admin.cronicas.index', compact('cronicas'));
+}
 
     // Muestra el formulario para crear una nueva crónica (equivale a subircronica.php)
     public function create()
