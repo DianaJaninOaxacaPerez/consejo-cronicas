@@ -63,7 +63,17 @@
         <p>Edita el logo y los datos de la página.</p>
     </a>
 
+    <a href="{{ route('admin.mesas.index') }}" class="dashboard-card">
+        <div class="dashboard-card-img"><img src="{{ asset('img/dashboard/mesas.svg') }}" alt="Mesas de Trabajo"></div>
+        <h3><i class="fa-solid fa-chalkboard"></i> Mesas de Trabajo</h3>
+        <p>Edita los nombres de las mesas del coloquio.</p>
+    </a>
 
+    <a href="{{ route('admin.registros-evento.index') }}" class="dashboard-card">
+        <div class="dashboard-card-img"><img src="{{ asset('img/dashboard/registros.svg') }}" alt="Registros del Evento"></div>
+        <h3><i class="fa-solid fa-qrcode"></i> Registros del Evento</h3>
+        <p>Consulta las confirmaciones de asistencia.</p>
+    </a>
 
 </div>
 @endsection
