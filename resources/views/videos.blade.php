@@ -1,5 +1,3 @@
-
-Videos.blade · PHP
 @extends('layouts.modulo')
 @section('title', 'Videos - Consejo Huejutlense de la Crónica')
 @push('styles')
@@ -78,7 +76,7 @@ Videos.blade · PHP
       font-size: .9rem;
       margin: 0;
     }
- 
+
     .filtros-videos {
       background: #F7FBFE;
       border: 1px solid #EAF3FA;
@@ -105,13 +103,23 @@ Videos.blade · PHP
       border-color: #2F9BD8;
       box-shadow: 0 0 0 .15rem rgba(47,155,216,.15);
     }
+
+    /* 🔍 Buscador con lupa (fix: la lupa ya no tapa el texto) */
     .buscador-clave { position: relative; }
     .buscador-clave i {
-      position: absolute; left: 14px; top: 50%;
-      transform: translateY(-50%); color: #8FA6B3;
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8FA6B3;
+      font-size: 0.9rem;
+      pointer-events: none;
+      z-index: 2;
     }
-    .buscador-clave input { padding-left: 40px; }
- 
+    .buscador-clave input {
+      padding-left: 42px !important;
+    }
+
     .btn-filtrar {
       background-color: #2F9BD8;
       border: none;
@@ -127,16 +135,39 @@ Videos.blade · PHP
       height: 44px;
     }
     .btn-filtrar:hover { background-color: #1565C0; color: #fff; }
+
+    /* 🧹 Botón limpiar filtros */
+    .btn-limpiar {
+      background-color: transparent;
+      border: 1px solid #CFE9FB;
+      color: #33404A;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 10px 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all .2s ease;
+      height: 44px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-limpiar:hover {
+      background-color: #F0F7FC;
+      border-color: #2F9BD8;
+      color: #1565C0;
+    }
   </style>
 @endpush
- 
+
 @section('content')
 <section id="videos" class="container py-5">
   <div class="section-title text-center mb-4">
     <h2>Videos</h2>
     <p>Momentos y tradiciones capturados en video</p>
   </div>
- 
+
   {{-- 🔍 Barra de filtros --}}
   <form method="GET" action="{{ route('videos') }}" class="filtros-videos">
     <div class="row g-3 align-items-end">
@@ -151,7 +182,7 @@ Videos.blade · PHP
         <label class="form-label">Título</label>
         <input type="text" name="titulo" class="form-control" placeholder="Título..." value="{{ request('titulo') }}">
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-4">
+      <div class="col-lg-2 col-md-4 col-sm-4">
         <label class="form-label">Categoría</label>
         <select name="categoria" class="form-select">
           <option value="">Todas</option>
@@ -160,14 +191,19 @@ Videos.blade · PHP
           @endforeach
         </select>
       </div>
-      <div class="col-lg-2 col-md-2 col-sm-2">
+      <div class="col-lg-2 col-md-3 col-sm-6">
         <button type="submit" class="btn-filtrar w-100">
           <i class="fa-solid fa-filter"></i> Filtrar
         </button>
       </div>
+      <div class="col-lg-1 col-md-3 col-sm-6">
+        <a href="{{ route('videos') }}" class="btn-limpiar w-100">
+          <i class="fa-solid fa-xmark"></i> Limpiar
+        </a>
+      </div>
     </div>
   </form>
- 
+
   <div class="row g-4">
     @forelse($videos as $video)
       <div class="col-md-4 col-sm-6">
@@ -206,4 +242,3 @@ Videos.blade · PHP
   </div>
 </section>
 @endsection
- 
