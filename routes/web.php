@@ -205,8 +205,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('videos', \App\Http\Controllers\Admin\VideoController::class);
         Route::get('mesas', [\App\Http\Controllers\Admin\MesaController::class, 'index'])->name('mesas.index');
         Route::put('mesas/{mesa}', [\App\Http\Controllers\Admin\MesaController::class, 'update'])->name('mesas.update');
-        Route::resource('registros-evento', \App\Http\Controllers\Admin\RegistroEventoController::class)->only(['index', 'destroy']);
-
+        Route::resource('registros-evento', \App\Http\Controllers\Admin\RegistroEventoController::class)
+        ->parameters(['registros-evento' => 'registro'])
+        ->only(['index', 'destroy']);
 
     });
 
