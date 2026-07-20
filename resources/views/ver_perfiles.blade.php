@@ -187,9 +187,15 @@
         font-size: 1.6rem;
       }
       .perfil-bio-texto {
-        text-align: left;
-        font-size: 1rem;
-      }
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1.9;
+      color: #2c2f36;
+      text-align: justify;
+      max-width: 65ch;
+    margin: 0 auto;
+}
     }
   </style>
 @endpush
