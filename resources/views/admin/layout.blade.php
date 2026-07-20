@@ -31,6 +31,8 @@
       <li><a href="{{ route('admin.cronistas.index') }}" class="{{ request()->routeIs('admin.cronistas.*') ? 'active' : '' }}"><i class="fa-solid fa-users"></i> Perfiles</a></li>
       <li><a href="{{ route('admin.usuarios.index') }}" class="{{ request()->routeIs('admin.usuarios.*') ? 'active' : '' }}"><i class="fa-solid fa-user-shield"></i> Usuarios</a></li>
       <li><a href="{{ route('admin.videos.index') }}" class="{{ request()->routeIs('admin.videos.*') ? 'active' : '' }}"><i class="fa-solid fa-video"></i> Videos</a></li>
+      <li><a href="{{ route('admin.mesas.index') }}" class="{{ request()->routeIs('admin.mesas.*') ? 'active' : '' }}"><i class="fa-solid fa-chalkboard"></i> Mesas de Trabajo</a></li>
+      <li><a href="{{ route('admin.registros-evento.index') }}" class="{{ request()->routeIs('admin.registros-evento.*') ? 'active' : '' }}"><i class="fa-solid fa-qrcode"></i> Registros del Evento</a></li>
     </ul>
 
 

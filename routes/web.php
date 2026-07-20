@@ -145,12 +145,23 @@ Route::middleware(['auth'])->group(function () {
         Route::get('configuracion', [\App\Http\Controllers\Admin\ConfiguracionController::class, 'edit'])->name('configuracion.edit');
         Route::post('configuracion', [\App\Http\Controllers\Admin\ConfiguracionController::class, 'update'])->name('configuracion.update');
         Route::resource('cronistas', \App\Http\Controllers\Admin\CronistaController::class)->parameters(['cronistas' => 'cronista']);
-        // Nueva ruta de usuarios
         Route::resource('usuarios', \App\Http\Controllers\Admin\UsuarioController::class)->parameters(['usuarios' => 'usuario']);
         Route::resource('videos', \App\Http\Controllers\Admin\VideoController::class);
+        Route::get('mesas', [\App\Http\Controllers\Admin\MesaController::class, 'index'])->name('mesas.index');
+        Route::put('mesas/{mesa}', [\App\Http\Controllers\Admin\MesaController::class, 'update'])->name('mesas.update');
+        Route::resource('registros-evento', \App\Http\Controllers\Admin\RegistroEventoController::class)->only(['index', 'destroy']);
+
+
+
+
 
     });
 
 
 });
+
+Route::get('/evento/confirmar', [\App\Http\Controllers\AsistenciaController::class, 'form'])->name('evento.confirmar.form');
+Route::post('/evento/confirmar', [\App\Http\Controllers\AsistenciaController::class, 'store'])->name('evento.confirmar.store');
+Route::get('/evento/confirmado/{registro}', [\App\Http\Controllers\AsistenciaController::class, 'confirmado'])->name('evento.confirmado');
+
 require __DIR__.'/settings.php';
