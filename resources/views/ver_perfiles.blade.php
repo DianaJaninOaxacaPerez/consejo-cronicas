@@ -20,16 +20,14 @@
       max-width: 820px;
       padding: 3rem 3.5rem 2.75rem;
       border-radius: 22px;
-      background: linear-gradient(160deg, rgba(227, 242, 253, 0.75), rgba(187, 222, 251, 0.55));
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      box-shadow: 0 12px 40px rgba(21, 60, 94, 0.18);
+      background: linear-gradient(160deg, #FBF8F3, #F3EEE4);
+      border: 1px solid rgba(180, 160, 130, 0.25);
+      box-shadow: 0 12px 40px rgba(60, 45, 20, 0.12);
       transition: box-shadow 0.35s ease;
     }
 
     .perfil-card:hover {
-      box-shadow: 0 18px 48px rgba(21, 60, 94, 0.24);
+      box-shadow: 0 18px 48px rgba(60, 45, 20, 0.16);
     }
 
     .perfil-foto-box {
@@ -43,10 +41,11 @@
       height: 168px;
       border-radius: 50%;
       padding: 4px;
-      background: linear-gradient(135deg, #ffffff, #90CAF9);
-      box-shadow: 0 6px 18px rgba(21, 60, 94, 0.28);
+      background: linear-gradient(135deg, #ffffff, #D8C9A8);
+      box-shadow: 0 6px 18px rgba(60, 45, 20, 0.2);
       overflow: hidden;
       flex-shrink: 0;
+      cursor: pointer;
     }
 
     .perfil-foto-ring img {
@@ -55,6 +54,11 @@
       object-fit: cover;
       border-radius: 50%;
       display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .perfil-foto-ring:hover img {
+      transform: scale(1.06);
     }
 
     .perfil-nombre {
@@ -72,11 +76,11 @@
       font-style: italic;
       font-weight: 500;
       font-size: 1.05rem;
-      color: #66748a;
+      color: #7a6f5c;
       text-align: center;
       margin-bottom: 2.25rem;
       padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(21, 60, 94, 0.12);
+      border-bottom: 1px solid rgba(120, 100, 70, 0.18);
     }
 
     .perfil-bio-titulo {
@@ -95,7 +99,7 @@
       width: 42px;
       height: 2px;
       margin: 0.6rem auto 0;
-      background: #64B5F6;
+      background: #B89A5E;
       border-radius: 2px;
     }
 
@@ -122,7 +126,7 @@
       text-align: center;
       margin-top: 2.75rem;
       padding-top: 1.75rem;
-      border-top: 1px solid rgba(21, 60, 94, 0.12);
+      border-top: 1px solid rgba(120, 100, 70, 0.18);
     }
 
     .perfil-volver a {
@@ -138,6 +142,41 @@
     .perfil-volver a:hover {
       color: #2b3644;
       border-color: #2b3644;
+    }
+
+    /* Modal de zoom para la foto */
+    .foto-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 20, 20, 0.85);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+      padding: 2rem;
+    }
+
+    .foto-modal-overlay.activo {
+      display: flex;
+    }
+
+    .foto-modal-overlay img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      object-fit: contain;
+    }
+
+    .foto-modal-cerrar {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      color: #fff;
+      font-size: 2.2rem;
+      cursor: pointer;
+      line-height: 1;
     }
 
     @media (max-width: 600px) {
@@ -160,6 +199,7 @@
   <div class="perfil-card">
     @php
       $fotoDefault = asset('img/default-perfil.png');
+      $fotoSrc = $cronista->foto ? Storage::url($cronista->foto) : $fotoDefault;
 
       // Divide la biografía en párrafos legibles (cada 3 oraciones aprox.)
       $oraciones = preg_split('/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÑ])/u', trim($cronista->biografia));
@@ -167,8 +207,8 @@
     @endphp
 
     <div class="perfil-foto-box">
-      <div class="perfil-foto-ring">
-        <img src="{{ $cronista->foto ? Storage::url($cronista->foto) : $fotoDefault }}"
+      <div class="perfil-foto-ring" id="abrirFotoModal">
+        <img src="{{ $fotoSrc }}"
              alt="{{ $cronista->nombre }}"
              onerror="this.onerror=null;this.src='{{ $fotoDefault }}';">
       </div>
@@ -189,4 +229,24 @@
     </div>
   </div>
 </section>
+
+<div class="foto-modal-overlay" id="fotoModal">
+  <span class="foto-modal-cerrar">&times;</span>
+  <img src="{{ $fotoSrc }}" alt="{{ $cronista->nombre }}">
+</div>
 @endsection
+
+@push('scripts')
+<script>
+  const abrirBtn = document.getElementById('abrirFotoModal');
+  const modal = document.getElementById('fotoModal');
+
+  abrirBtn.addEventListener('click', function () {
+    modal.classList.add('activo');
+  });
+
+  modal.addEventListener('click', function () {
+    modal.classList.remove('activo');
+  });
+</script>
+@endpush
