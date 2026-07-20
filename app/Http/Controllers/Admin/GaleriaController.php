@@ -6,11 +6,42 @@ use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 class GaleriaController extends Controller
 {
-    public function index()
-    {
-        $imagenes = Galeria::orderByDesc('id_galeria')->get();
-        return view('admin.galeria.index', compact('imagenes'));
+    public function index(Request $request)
+{
+    $query = Galeria::query();
+
+    if ($request->filled('titulo')) {
+        $query->where(
+            'titulo',
+            'like',
+            '%' . $request->titulo . '%'
+        );
     }
+
+    if ($request->filled('descripcion')) {
+        $query->where(
+            'descripcion',
+            'like',
+            '%' . $request->descripcion . '%'
+        );
+    }
+
+    if ($request->filled('categoria')) {
+        $query->where(
+            'categoria',
+            $request->categoria
+        );
+    }
+
+    $imagenes = $query
+        ->orderByDesc('id_galeria')
+        ->get();
+
+    return view('admin.galeria.index', [
+        'imagenes' => $imagenes,
+        'categorias' => Galeria::CATEGORIAS,
+    ]);
+}
     public function create()
     {
         return view('admin.galeria.create', [

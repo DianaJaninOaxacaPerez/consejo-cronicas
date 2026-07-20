@@ -84,7 +84,48 @@
     transform: translateY(-2px);
     box-shadow: 0 7px 16px rgba(47, 155, 216, 0.35);
 }
+.filtros-galeria{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+    max-width:1100px;
+    margin:0 auto 30px;
+}
 
+.filtros-galeria__label{
+    font-weight:600;
+    color:#33404A;
+}
+
+.filtros-galeria__input,
+.filtros-galeria__select{
+    flex:1;
+    min-width:170px;
+    padding:10px 16px;
+    border:1px solid #DCEBF5;
+    border-radius:50px;
+}
+
+.filtros-galeria__btn{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:none;
+    background:#2F9BD8;
+    color:#fff;
+    cursor:pointer;
+}
+
+.filtros-galeria__btn:hover{
+    background:#227db0;
+}
+
+.filtros-galeria__limpiar{
+    text-decoration:none;
+    color:#A14B31;
+    font-size:.85rem;
+}
 /* Adaptación para pantallas pequeñas */
 @media (max-width: 768px) {
     .encabezado-galeria-admin {
@@ -119,9 +160,75 @@
 
 </div>
 
-<div class="search-box mb-4 mx-auto" style="max-width: 400px;">
-  <input type="text" id="inputBusqueda" class="form-control" placeholder="Buscar por título...">
+<form
+    method="GET"
+    action="{{ route('admin.galeria.index') }}"
+    class="filtros-galeria"
+>
+
+    <span class="filtros-galeria__label">
+        Filtros
+    </span>
+
+    <input
+        type="text"
+        name="titulo"
+        class="filtros-galeria__input"
+        placeholder="Título"
+        value="{{ request('titulo') }}"
+    >
+
+    <input
+        type="text"
+        name="descripcion"
+        class="filtros-galeria__input"
+        placeholder="Descripción"
+        value="{{ request('descripcion') }}"
+    >
+
+    <select
+        name="categoria"
+        class="filtros-galeria__select"
+    >
+        <option value="">Categoría</option>
+
+        @foreach($categorias as $valor => $etiqueta)
+            <option
+                value="{{ $valor }}"
+                {{ request('categoria') == $valor ? 'selected' : '' }}
+            >
+                {{ $etiqueta }}
+            </option>
+        @endforeach
+    </select>
+
+    <button
+        type="submit"
+        class="filtros-galeria__btn"
+    >
+        +
+    </button>
+
+    @if(request()->anyFilled(['titulo','descripcion','categoria']))
+        <a
+            href="{{ route('admin.galeria.index') }}"
+            class="filtros-galeria__limpiar"
+        >
+            Limpiar
+        </a>
+    @endif
+
+</form>
+
+<div class="search-box mb-4 mx-auto" style="max-width:400px;">
+    <input
+        type="text"
+        id="inputBusqueda"
+        class="form-control"
+        placeholder="Buscar entre los resultados..."
+    >
 </div>
+
 
 <div class="gallery">
   @foreach($imagenes as $foto)
