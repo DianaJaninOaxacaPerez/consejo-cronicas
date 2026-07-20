@@ -47,14 +47,55 @@
     <p>Historias que mantienen viva la memoria</p>
   </div>
 
-  <div class="search-box mb-4 mx-auto" style="max-width: 400px;">
-    <input
-      type="text"
-      id="inputBusqueda"
-      class="form-control"
-      placeholder="Buscar por título o autor..."
+  <form
+  method="GET"
+  action="{{ route('cronicas') }}"
+  class="filtros-cronicas"
+>
+  <span class="filtros-cronicas__label">
+    Filtros
+  </span>
+
+  <input
+    type="text"
+    name="titulo"
+    class="filtros-cronicas__input"
+    placeholder="Título de la crónica"
+    value="{{ request('titulo') }}"
+  >
+
+  <input
+    type="text"
+    name="autor"
+    class="filtros-cronicas__input"
+    placeholder="Autor"
+    value="{{ request('autor') }}"
+  >
+
+  <input
+    type="date"
+    name="fecha"
+    class="filtros-cronicas__input"
+    value="{{ request('fecha') }}"
+  >
+
+  <button
+    type="submit"
+    class="filtros-cronicas__btn"
+    title="Aplicar filtros"
+  >
+    +
+  </button>
+
+  @if(request()->anyFilled(['titulo', 'autor', 'fecha']))
+    <a
+      href="{{ route('cronicas') }}"
+      class="filtros-cronicas__limpiar"
     >
-  </div>
+      Limpiar filtros
+    </a>
+  @endif
+</form>
 
   <div class="cronicas-grid">
 

@@ -51,11 +51,44 @@ Route::get('/historia', function (\Illuminate\Http\Request $request) {
 
 })->name('historia');
 
+Route::get('/cronicas', function (\Illuminate\Http\Request $request) {
 
-Route::get('/cronicas', function () {
-    $cronicas = \App\Models\Cronica::orderByDesc('id_cronica')->get();
+    $query = \App\Models\Cronica::query();
+
+    // Filtrar por título
+    if ($request->filled('titulo')) {
+        $query->where(
+            'titulo',
+            'like',
+            '%' . $request->titulo . '%'
+        );
+    }
+
+    // Filtrar por autor
+    if ($request->filled('autor')) {
+        $query->where(
+            'autor',
+            'like',
+            '%' . $request->autor . '%'
+        );
+    }
+
+    // Filtrar por fecha exacta
+    if ($request->filled('fecha')) {
+        $query->whereDate(
+            'fecha',
+            $request->fecha
+        );
+    }
+
+    $cronicas = $query
+        ->orderByDesc('fecha')
+        ->get();
+
     return view('cronicas', compact('cronicas'));
+
 })->name('cronicas');
+
 
 Route::get('/galeria', function (\Illuminate\Http\Request $request) {
 
