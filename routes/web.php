@@ -113,10 +113,34 @@ Route::get('/videos', function () {
     $videos = \App\Models\Video::orderByDesc('id_video')->get();
     return view('videos', compact('videos'));
 })->name('videos');
-Route::get('/videos/{id}', function ($id) {
-    $video = \App\Models\Video::findOrFail($id);
-    return view('ver_video', compact('video'));
-})->name('videos.show');
+Route::get('/videos', function (\Illuminate\Http\Request $request) {
+
+    $query = \App\Models\Video::query();
+
+    if ($request->filled('q')) {
+        $palabra = $request->q;
+        $query->where(function ($sub) use ($palabra) {
+            $sub->where('titulo', 'like', "%{$palabra}%")
+                ->orWhere('descripcion', 'like', "%{$palabra}%");
+        });
+    }
+
+    if ($request->filled('titulo')) {
+        $query->where('titulo', 'like', '%'.$request->titulo.'%');
+    }
+
+    if ($request->filled('categoria')) {
+        $query->where('categoria', $request->categoria);
+    }
+
+    $videos = $query->orderByDesc('id_video')->get();
+
+    return view('videos', [
+        'videos'     => $videos,
+        'categorias' => \App\Models\Video::CATEGORIAS,
+    ]);
+
+})->name('videos');
 
 
 /*Rutas administrativas (back - Livewire Starter Kit*/

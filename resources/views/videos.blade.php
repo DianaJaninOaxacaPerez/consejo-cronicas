@@ -1,3 +1,5 @@
+
+Videos.blade · PHP
 @extends('layouts.modulo')
 @section('title', 'Videos - Consejo Huejutlense de la Crónica')
 @push('styles')
@@ -76,14 +78,96 @@
       font-size: .9rem;
       margin: 0;
     }
+ 
+    .filtros-videos {
+      background: #F7FBFE;
+      border: 1px solid #EAF3FA;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 30px;
+    }
+    .filtros-videos .form-label {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: .82rem;
+      color: #33404A;
+      margin-bottom: 6px;
+    }
+    .filtros-videos .form-control,
+    .filtros-videos .form-select {
+      border-radius: 10px;
+      border: 1px solid #CFE9FB;
+      padding: 10px 14px;
+      font-size: .9rem;
+    }
+    .filtros-videos .form-control:focus,
+    .filtros-videos .form-select:focus {
+      border-color: #2F9BD8;
+      box-shadow: 0 0 0 .15rem rgba(47,155,216,.15);
+    }
+    .buscador-clave { position: relative; }
+    .buscador-clave i {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%); color: #8FA6B3;
+    }
+    .buscador-clave input { padding-left: 40px; }
+ 
+    .btn-filtrar {
+      background-color: #2F9BD8;
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 10px 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all .2s ease;
+      height: 44px;
+    }
+    .btn-filtrar:hover { background-color: #1565C0; color: #fff; }
   </style>
 @endpush
+ 
 @section('content')
 <section id="videos" class="container py-5">
   <div class="section-title text-center mb-4">
     <h2>Videos</h2>
     <p>Momentos y tradiciones capturados en video</p>
   </div>
+ 
+  {{-- 🔍 Barra de filtros --}}
+  <form method="GET" action="{{ route('videos') }}" class="filtros-videos">
+    <div class="row g-3 align-items-end">
+      <div class="col-lg-4 col-md-12">
+        <label class="form-label">&nbsp;</label>
+        <div class="buscador-clave">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" name="q" class="form-control" placeholder="Buscar por palabra clave..." value="{{ request('q') }}">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <label class="form-label">Título</label>
+        <input type="text" name="titulo" class="form-control" placeholder="Título..." value="{{ request('titulo') }}">
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-4">
+        <label class="form-label">Categoría</label>
+        <select name="categoria" class="form-select">
+          <option value="">Todas</option>
+          @foreach($categorias as $valor => $etiqueta)
+            <option value="{{ $valor }}" {{ request('categoria') === $valor ? 'selected' : '' }}>{{ $etiqueta }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <button type="submit" class="btn-filtrar w-100">
+          <i class="fa-solid fa-filter"></i> Filtrar
+        </button>
+      </div>
+    </div>
+  </form>
+ 
   <div class="row g-4">
     @forelse($videos as $video)
       <div class="col-md-4 col-sm-6">
@@ -117,8 +201,9 @@
         @endif
       </div>
     @empty
-      <p class="text-center">Aún no hay videos registrados.</p>
+      <p class="text-center">No se encontraron videos con esos filtros.</p>
     @endforelse
   </div>
 </section>
 @endsection
+ 

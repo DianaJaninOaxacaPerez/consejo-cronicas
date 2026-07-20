@@ -9,18 +9,32 @@ use Illuminate\Http\Request;
 
 class VideoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $videos = Video::orderByDesc('id_video')->get();
-        return view('admin.videos.index', compact('videos'));
+        $query = Video::query();
+
+    if ($request->filled('q')) {
+        $palabra = $request->q;
+        $query->where(function ($sub) use ($palabra) {
+            $sub->where('titulo', 'like', "%{$palabra}%")
+                ->orWhere('descripcion', 'like', "%{$palabra}%");
+        });
     }
 
-    public function create()
-    {
-        return view('admin.videos.create', [
-            'categorias'  => Video::CATEGORIAS,
-            'plataformas' => Video::PLATAFORMAS,
-        ]);
+    if ($request->filled('titulo')) {
+        $query->where('titulo', 'like', '%'.$request->titulo.'%');
+    }
+
+    if ($request->filled('categoria')) {
+        $query->where('categoria', $request->categoria);
+    }
+
+    $videos = $query->orderByDesc('id_video')->get();
+
+    return view('admin.videos.index', [
+        'videos'     => $videos,
+        'categorias' => Video::CATEGORIAS,
+    ]);
     }
 
     public function store(Request $request)
