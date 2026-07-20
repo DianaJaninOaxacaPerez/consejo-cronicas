@@ -20,14 +20,14 @@
       max-width: 820px;
       padding: 3rem 3.5rem 2.75rem;
       border-radius: 22px;
-      background: linear-gradient(160deg, #FBF8F3, #F3EEE4);
-      border: 1px solid rgba(180, 160, 130, 0.25);
-      box-shadow: 0 12px 40px rgba(60, 45, 20, 0.12);
+      background: linear-gradient(160deg, #F7F9FB, #EDF1F5);
+      border: 1px solid rgba(100, 120, 140, 0.2);
+      box-shadow: 0 12px 40px rgba(30, 45, 60, 0.10);
       transition: box-shadow 0.35s ease;
     }
 
     .perfil-card:hover {
-      box-shadow: 0 18px 48px rgba(60, 45, 20, 0.16);
+      box-shadow: 0 18px 48px rgba(30, 45, 60, 0.14);
     }
 
     .perfil-foto-box {
@@ -41,8 +41,8 @@
       height: 168px;
       border-radius: 50%;
       padding: 4px;
-      background: linear-gradient(135deg, #ffffff, #D8C9A8);
-      box-shadow: 0 6px 18px rgba(60, 45, 20, 0.2);
+      background: linear-gradient(135deg, #ffffff, #C7D4DE);
+      box-shadow: 0 6px 18px rgba(30, 45, 60, 0.18);
       overflow: hidden;
       flex-shrink: 0;
       cursor: pointer;
@@ -76,11 +76,11 @@
       font-style: italic;
       font-weight: 500;
       font-size: 1.05rem;
-      color: #7a6f5c;
+      color: #6b7684;
       text-align: center;
       margin-bottom: 2.25rem;
       padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(120, 100, 70, 0.18);
+      border-bottom: 1px solid rgba(70, 90, 110, 0.15);
     }
 
     .perfil-bio-titulo {
@@ -99,7 +99,7 @@
       width: 42px;
       height: 2px;
       margin: 0.6rem auto 0;
-      background: #B89A5E;
+      background: #7A93A8;
       border-radius: 2px;
     }
 
@@ -126,7 +126,7 @@
       text-align: center;
       margin-top: 2.75rem;
       padding-top: 1.75rem;
-      border-top: 1px solid rgba(120, 100, 70, 0.18);
+      border-top: 1px solid rgba(70, 90, 110, 0.15);
     }
 
     .perfil-volver a {
