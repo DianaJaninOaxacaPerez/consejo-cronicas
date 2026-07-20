@@ -16,50 +16,20 @@
 
     .perfil-card {
       position: relative;
-      overflow: hidden;
       width: 100%;
-      max-width: 900px;
-      padding: 3rem 4rem 2.75rem;
+      max-width: 820px;
+      padding: 3rem 3.5rem 2.75rem;
       border-radius: 22px;
       background: linear-gradient(160deg, rgba(227, 242, 253, 0.75), rgba(187, 222, 251, 0.55));
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
       border: 1px solid rgba(255, 255, 255, 0.7);
-      box-shadow:
-        0 12px 40px rgba(21, 60, 94, 0.18),
-        0 1px 0 rgba(255, 255, 255, 0.6) inset;
-      transition: transform 0.45s cubic-bezier(.22,.9,.32,1),
-                  box-shadow 0.45s cubic-bezier(.22,.9,.32,1),
-                  border-color 0.45s ease;
+      box-shadow: 0 12px 40px rgba(21, 60, 94, 0.18);
+      transition: box-shadow 0.35s ease;
     }
 
     .perfil-card:hover {
-      transform: translateY(-6px);
-      border-color: #1565C0;
-      box-shadow:
-        0 22px 55px rgba(21, 60, 94, 0.32),
-        0 1px 0 rgba(255, 255, 255, 0.5) inset;
-    }
-
-    .perfil-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -120%;
-      width: 55%;
-      height: 100%;
-      background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255, 255, 255, 0.55),
-        transparent
-      );
-      pointer-events: none;
-      transition: left 0.7s ease;
-    }
-
-    .perfil-card:hover::before {
-      left: 130%;
+      box-shadow: 0 18px 48px rgba(21, 60, 94, 0.24);
     }
 
     .perfil-foto-box {
@@ -76,6 +46,7 @@
       background: linear-gradient(135deg, #ffffff, #90CAF9);
       box-shadow: 0 6px 18px rgba(21, 60, 94, 0.28);
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .perfil-foto-ring img {
@@ -84,13 +55,6 @@
       object-fit: cover;
       border-radius: 50%;
       display: block;
-      transition: transform 0.6s cubic-bezier(.22,.9,.32,1), filter 0.6s ease;
-      filter: grayscale(15%);
-    }
-
-    .perfil-foto-ring:hover img {
-      transform: scale(1.12) rotate(1deg);
-      filter: grayscale(0%);
     }
 
     .perfil-nombre {
@@ -101,11 +65,6 @@
       color: #2b3644;
       text-align: center;
       margin-bottom: 0.35rem;
-      transition: color 0.35s ease;
-    }
-
-    .perfil-card:hover .perfil-nombre {
-      color: #1565C0;
     }
 
     .perfil-cargo {
@@ -115,17 +74,19 @@
       font-size: 1.05rem;
       color: #66748a;
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 2.25rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(21, 60, 94, 0.12);
     }
 
     .perfil-bio-titulo {
       font-family: 'Playfair Display', Georgia, serif;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: #2b3644;
       text-align: center;
       position: relative;
-      margin-bottom: 1.1rem;
+      margin-bottom: 1.75rem;
     }
 
     .perfil-bio-titulo::after {
@@ -133,25 +94,35 @@
       display: block;
       width: 42px;
       height: 2px;
-      margin: 0.5rem auto 0;
+      margin: 0.6rem auto 0;
       background: #64B5F6;
       border-radius: 2px;
     }
 
     .perfil-bio-texto {
       font-family: 'Lora', Georgia, serif;
-      font-size: 1.03rem;
-      line-height: 1.85;
+      font-size: 1.05rem;
+      line-height: 1.9;
       color: #3d4756;
-      text-align: center;
-      max-width: 72ch;
+      text-align: justify;
+      max-width: 65ch;
       margin: 0 auto;
+    }
+
+    .perfil-bio-texto p {
+      margin-bottom: 1.4rem;
+    }
+
+    .perfil-bio-texto p:last-child {
+      margin-bottom: 0;
     }
 
     .perfil-volver {
       display: block;
       text-align: center;
-      margin-top: 2.5rem;
+      margin-top: 2.75rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(21, 60, 94, 0.12);
     }
 
     .perfil-volver a {
@@ -168,13 +139,33 @@
       color: #2b3644;
       border-color: #2b3644;
     }
+
+    @media (max-width: 600px) {
+      .perfil-card {
+        padding: 2.25rem 1.5rem 2rem;
+      }
+      .perfil-nombre {
+        font-size: 1.6rem;
+      }
+      .perfil-bio-texto {
+        text-align: left;
+        font-size: 1rem;
+      }
+    }
   </style>
 @endpush
 
 @section('content')
 <section class="container py-5 perfil-wrap">
   <div class="perfil-card">
-    @php $fotoDefault = asset('img/default-perfil.png'); @endphp
+    @php
+      $fotoDefault = asset('img/default-perfil.png');
+
+      // Divide la biografía en párrafos legibles (cada 3 oraciones aprox.)
+      $oraciones = preg_split('/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÑ])/u', trim($cronista->biografia));
+      $parrafos = array_chunk($oraciones, 3);
+    @endphp
+
     <div class="perfil-foto-box">
       <div class="perfil-foto-ring">
         <img src="{{ $cronista->foto ? Storage::url($cronista->foto) : $fotoDefault }}"
@@ -187,7 +178,11 @@
     <p class="perfil-cargo">{{ $cronista->cargo }}</p>
 
     <h3 class="perfil-bio-titulo">Biografía</h3>
-    <p class="perfil-bio-texto">{{ $cronista->biografia }}</p>
+    <div class="perfil-bio-texto">
+      @foreach($parrafos as $parrafo)
+        <p>{{ implode(' ', $parrafo) }}</p>
+      @endforeach
+    </div>
 
     <div class="perfil-volver">
       <a href="{{ route('perfiles') }}">← Regresar a Perfiles</a>
