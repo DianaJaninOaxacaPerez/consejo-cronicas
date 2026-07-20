@@ -81,6 +81,11 @@
           <i class="fa-solid fa-users"></i> Perfiles
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link opcion-menu-buscable" href="{{ route('videos') }}">
+          <i class="fa-solid fa-video"></i> Videos
+          </a>
+        </li>
       </ul>
 
     </div>
