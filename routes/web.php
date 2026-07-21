@@ -213,9 +213,14 @@ Route::middleware(['auth'])->group(function () {
 
 
 });
+// routes/web.php
+
+Route::get('/evento', function () {
+    $urlPublica = route('evento.confirmar.form');
+    return view('evento', compact('urlPublica'));
+})->name('evento.qr');
 
 Route::get('/evento/confirmar', [\App\Http\Controllers\AsistenciaController::class, 'form'])->name('evento.confirmar.form');
 Route::post('/evento/confirmar', [\App\Http\Controllers\AsistenciaController::class, 'store'])->name('evento.confirmar.store');
 Route::get('/evento/confirmado/{registro}', [\App\Http\Controllers\AsistenciaController::class, 'confirmado'])->name('evento.confirmado');
-
 require __DIR__.'/settings.php';
