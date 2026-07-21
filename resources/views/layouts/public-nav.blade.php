@@ -22,6 +22,7 @@
         <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('entrevistas') }}">Entrevistas</a></li>
         <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('perfiles') }}">Perfiles</a></li>
         <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('videos') }}">Videos</a></li>
+        <li class="nav-item"><a class="nav-link opcion-menu" href="{{ route('evento.qr') }}">Evento</a></li>
         </ul>
 
         <div class="menu-title d-lg-none">CRÓNICA HUEJUTLENSE</div>
