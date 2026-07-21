@@ -7,13 +7,18 @@
     <p>Coloquio de la Crónica - 15 de agosto</p>
 </div>
 
-<div style="text-align:center; margin-bottom:30px;">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data={{ urlencode($urlPublica) }}" alt="Código QR de registro">
-    <p style="font-size:.85rem; color:#666; margin-top:8px;">Escanea o imprime este código para que los asistentes se registren</p>
-    <p style="font-size:.8rem; color:#999;">{{ $urlPublica }}</p>
+<div style="text-align:center; margin-bottom:20px;">
+    <a href="{{ route('evento.qr') }}" target="_blank" class="btn-borrar"
+       style="display:inline-block; background:#1565C0; color:#fff; padding:10px 20px; border-radius:6px; text-decoration:none;">
+        Ver / Proyectar código QR público
+    </a>
 </div>
 
-<p style="text-align:center; font-weight:600;">Total de registros: {{ $registros->count() }}</p>
+<div style="text-align:center; margin-bottom:30px;">
+    <p style="font-size:1.3rem; font-weight:700; color:#1565C0;">
+        Total de registros: {{ $registros->count() }}
+    </p>
+</div>
 
 <table style="width:100%; border-collapse:collapse; margin-top:20px;">
     <thead>
