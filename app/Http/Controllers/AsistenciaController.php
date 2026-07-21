@@ -22,15 +22,22 @@ class AsistenciaController extends Controller
             'id_mesa'  => 'required|exists:mesas_trabajo,id_mesa',
         ]);
 
-        $yaExiste = RegistroEvento::where('nombre', $request->nombre)
-            ->where('telefono', $request->telefono)
-            ->exists();
+        $registro = RegistroEvento::where('telefono', $request->telefono)->first();
 
-        if ($yaExiste) {
-            return back()->withInput()
-                ->with('error', 'Ya existe un registro con ese nombre y teléfono.');
+        if ($registro) {
+            // Ya existe un registro con ese teléfono: solo actualizamos su mesa
+            $registro->update([
+                'nombre'         => $request->nombre,
+                'id_mesa'        => $request->id_mesa,
+                'fecha_registro' => now(),
+            ]);
+
+            return redirect()
+                ->route('evento.confirmado', $registro->id_registro)
+                ->with('actualizado', true);
         }
 
+        // No existe: se crea un registro nuevo
         $registro = RegistroEvento::create([
             'nombre'         => $request->nombre,
             'telefono'       => $request->telefono,
