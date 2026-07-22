@@ -24,8 +24,32 @@ class RegistroEventoController extends Controller
             ->with('success', 'Registro eliminado.');
     }
 
+
     public function conteo()
-    {
-    return response()->json(['total' => RegistroEvento::count()]);
-    }
+{
+    $registros = RegistroEvento::with('mesa')->orderByDesc('fecha_registro')->get();
+
+    return response()->json([
+        'total' => $registros->count(),
+        'registros' => $registros->map(function ($registro) {
+            return [
+                'id_registro' => $registro->id_registro,
+                'nombre' => $registro->nombre,
+                'telefono' => $registro->telefono,
+                'mesa' => $registro->mesa->nombre ?? 'N/A',
+                'fecha' => \Carbon\Carbon::parse($registro->fecha_registro)->format('d/m/Y H:i'),
+            ];
+        }),
+    ]);
+}
+
+
+
+
+
+
+
+
+
+
 }

@@ -20,8 +20,6 @@
     </p>
 </div>
 
-
-
 <table style="width:100%; border-collapse:collapse; margin-top:20px;">
     <thead>
         <tr style="background:#E3F1FA; text-align:left;">
@@ -32,7 +30,7 @@
             <th style="padding:10px;"></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tabla-registros">
         @forelse($registros as $registro)
             <tr style="border-bottom:1px solid #eee;">
                 <td style="padding:10px;">{{ $registro->nombre }}</td>
@@ -54,15 +52,49 @@
 </table>
 
 <script>
+const urlConteo = "{{ route('admin.registros-evento.conteo') }}";
+const urlBaseEliminar = "{{ url('admin/registros-evento') }}"; // ej: .../admin/registros-evento/5
+const csrfToken = "{{ csrf_token() }}";
+
+function escaparTexto(texto) {
+    const div = document.createElement('div');
+    div.textContent = texto;
+    return div.innerHTML;
+}
+
 setInterval(function () {
-    fetch("{{ route('admin.registros-evento.conteo') }}")
+    fetch(urlConteo)
         .then(res => res.json())
         .then(data => {
             document.getElementById('contador-total').innerText = data.total;
-        })
-        .catch(err => console.error('Error actualizando contador:', err));
-}, 5000); // se actualiza cada 5 segundos
-</script>
 
+            const tbody = document.getElementById('tabla-registros');
+
+            if (data.registros.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="padding:20px; text-align:center;">Aún no hay registros.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.registros.map(function (r) {
+                return `
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px;">${escaparTexto(r.nombre)}</td>
+                        <td style="padding:10px;">${escaparTexto(r.telefono)}</td>
+                        <td style="padding:10px;">${escaparTexto(r.mesa)}</td>
+                        <td style="padding:10px;">${escaparTexto(r.fecha)}</td>
+                        <td style="padding:10px;">
+                            <form action="${urlBaseEliminar}/${r.id_registro}" method="POST" onsubmit="return confirm('¿Eliminar este registro?');">
+                                <input type="hidden" name="_token" value="${csrfToken}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn-borrar" style="border:none; background:none; color:#d9534f; cursor:pointer;">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        })
+        .catch(err => console.error('Error actualizando registros:', err));
+}, 5000);
+</script>
 
 @endsection
