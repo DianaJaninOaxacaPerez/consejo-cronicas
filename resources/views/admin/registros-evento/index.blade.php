@@ -16,9 +16,11 @@
 
 <div style="text-align:center; margin-bottom:30px;">
     <p style="font-size:1.3rem; font-weight:700; color:#1565C0;">
-        Total de registros: {{ $registros->count() }}
+        Total de registros: <span id="contador-total">{{ $registros->count() }}</span>
     </p>
 </div>
+
+
 
 <table style="width:100%; border-collapse:collapse; margin-top:20px;">
     <thead>
@@ -50,5 +52,17 @@
         @endforelse
     </tbody>
 </table>
+
+<script>
+setInterval(function () {
+    fetch("{{ route('admin.registros-evento.conteo') }}")
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('contador-total').innerText = data.total;
+        })
+        .catch(err => console.error('Error actualizando contador:', err));
+}, 5000); // se actualiza cada 5 segundos
+</script>
+
 
 @endsection

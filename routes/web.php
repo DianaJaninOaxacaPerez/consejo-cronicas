@@ -208,10 +208,14 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('registros-evento', \App\Http\Controllers\Admin\RegistroEventoController::class)
         ->parameters(['registros-evento' => 'registro'])
         ->only(['index', 'destroy']);
+        Route::resource('registros-evento', \App\Http\Controllers\Admin\RegistroEventoController::class)
+        ->parameters(['registros-evento' => 'registro'])
+        ->only(['index', 'destroy']);
+
+        Route::get('registros-evento-conteo', [\App\Http\Controllers\Admin\RegistroEventoController::class, 'conteo'])
+            ->name('registros-evento.conteo');
 
     });
-
-
 });
 // routes/web.php
 

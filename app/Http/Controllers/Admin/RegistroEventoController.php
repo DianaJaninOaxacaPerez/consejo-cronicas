@@ -23,4 +23,9 @@ class RegistroEventoController extends Controller
         return redirect()->route('admin.registros-evento.index')
             ->with('success', 'Registro eliminado.');
     }
+
+    public function conteo()
+    {
+    return response()->json(['total' => RegistroEvento::count()]);
+    }
 }
