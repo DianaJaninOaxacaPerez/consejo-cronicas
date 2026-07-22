@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class VideoController extends Controller
 {
+    public function create()
+    {
+    return view('admin.videos.create', [
+        'categorias'  => Video::CATEGORIAS,
+        'plataformas' => Video::PLATAFORMAS,
+    ]);
+    }
+
+
     public function index(Request $request)
     {
         $query = Video::query();
@@ -125,4 +134,5 @@ class VideoController extends Controller
         return redirect()->route('admin.videos.index')
             ->with('success', 'Video eliminado correctamente.');
     }
+
 }
