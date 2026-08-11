@@ -51,44 +51,11 @@ Route::get('/historia', function (\Illuminate\Http\Request $request) {
 
 })->name('historia');
 
-Route::get('/cronicas', function (\Illuminate\Http\Request $request) {
 
-    $query = \App\Models\Cronica::query();
-
-    // Filtrar por título
-    if ($request->filled('titulo')) {
-        $query->where(
-            'titulo',
-            'like',
-            '%' . $request->titulo . '%'
-        );
-    }
-
-    // Filtrar por autor
-    if ($request->filled('autor')) {
-        $query->where(
-            'autor',
-            'like',
-            '%' . $request->autor . '%'
-        );
-    }
-
-    // Filtrar por fecha exacta
-    if ($request->filled('fecha')) {
-        $query->whereDate(
-            'fecha',
-            $request->fecha
-        );
-    }
-
-    $cronicas = $query
-        ->orderByDesc('fecha')
-        ->get();
-
+Route::get('/cronicas', function () {
+    $cronicas = \App\Models\Cronica::orderByDesc('id_cronica')->get();
     return view('cronicas', compact('cronicas'));
-
 })->name('cronicas');
-
 
 Route::get('/galeria', function (\Illuminate\Http\Request $request) {
 
@@ -170,11 +137,25 @@ Route::get('/videos', function (\Illuminate\Http\Request $request) {
     ]);
 
 })->name('videos');
-
 Route::get('/videos/{id}', function ($id) {
     $video = \App\Models\Video::findOrFail($id);
     return view('ver_video', compact('video'));
 })->name('videos.show');
+
+Route::get('/plataformas', function (\Illuminate\Http\Request $request) {
+
+    $query = \App\Models\Plataforma::query();
+
+    if ($request->filled('q')) {
+        $query->where('nombre', 'like', '%'.$request->q.'%');
+    }
+
+    $plataformas = $query->orderBy('nombre')->get();
+
+    return view('plataformas', compact('plataformas'));
+
+})->name('plataformas');
+
 
 /*Rutas administrativas (back - Livewire Starter Kit*/
 /* Login */
@@ -184,6 +165,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 /* Rutas administrativas */
 Route::middleware(['auth'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+
 
 
     Route::prefix('admin')->name('admin.')->group(function () {
@@ -203,28 +185,22 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('cronistas', \App\Http\Controllers\Admin\CronistaController::class)->parameters(['cronistas' => 'cronista']);
         Route::resource('usuarios', \App\Http\Controllers\Admin\UsuarioController::class)->parameters(['usuarios' => 'usuario']);
         Route::resource('videos', \App\Http\Controllers\Admin\VideoController::class);
+        Route::resource('plataformas', \App\Http\Controllers\Admin\PlataformaController::class);
         Route::get('mesas', [\App\Http\Controllers\Admin\MesaController::class, 'index'])->name('mesas.index');
         Route::put('mesas/{mesa}', [\App\Http\Controllers\Admin\MesaController::class, 'update'])->name('mesas.update');
-        Route::resource('registros-evento', \App\Http\Controllers\Admin\RegistroEventoController::class)
-        ->parameters(['registros-evento' => 'registro'])
-        ->only(['index', 'destroy']);
-        Route::resource('registros-evento', \App\Http\Controllers\Admin\RegistroEventoController::class)
-        ->parameters(['registros-evento' => 'registro'])
-        ->only(['index', 'destroy']);
+        Route::resource('registros-evento', \App\Http\Controllers\Admin\RegistroEventoController::class)->only(['index', 'destroy']);
 
-        Route::get('registros-evento-conteo', [\App\Http\Controllers\Admin\RegistroEventoController::class, 'conteo'])
-            ->name('registros-evento.conteo');
+
+
+
 
     });
-});
-// routes/web.php
 
-Route::get('/evento', function () {
-    $urlPublica = route('evento.confirmar.form');
-    return view('evento', compact('urlPublica'));
-})->name('evento.qr');
+
+});
 
 Route::get('/evento/confirmar', [\App\Http\Controllers\AsistenciaController::class, 'form'])->name('evento.confirmar.form');
 Route::post('/evento/confirmar', [\App\Http\Controllers\AsistenciaController::class, 'store'])->name('evento.confirmar.store');
 Route::get('/evento/confirmado/{registro}', [\App\Http\Controllers\AsistenciaController::class, 'confirmado'])->name('evento.confirmado');
+
 require __DIR__.'/settings.php';
