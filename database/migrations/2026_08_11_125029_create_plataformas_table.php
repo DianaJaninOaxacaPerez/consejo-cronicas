@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('plataformas', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('url')->nullable();
+            $table->text('descripcion')->nullable();
+            $table->string('logo')->nullable();
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }
