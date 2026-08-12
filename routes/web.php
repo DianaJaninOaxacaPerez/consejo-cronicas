@@ -184,8 +184,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('mesas', [\App\Http\Controllers\Admin\MesaController::class, 'index'])->name('mesas.index');
         Route::put('mesas/{mesa}', [\App\Http\Controllers\Admin\MesaController::class, 'update'])->name('mesas.update');
         Route::resource('registros-evento', \App\Http\Controllers\Admin\RegistroEventoController::class)->only(['index', 'destroy']);
-        
-
+        Route::get('registros-evento-conteo', [\App\Http\Controllers\Admin\RegistroEventoController::class, 'conteo'])->name('registros-evento.conteo');
 
 
 
