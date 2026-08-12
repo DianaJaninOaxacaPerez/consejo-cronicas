@@ -29,9 +29,11 @@ class CronistaController extends Controller
             'cargo'     => 'required|string',
             'biografia' => 'required|string',
             'foto'      => 'nullable|image|max:2048',
+            'youtube'   => 'nullable|url|max:255',
+            'facebook'  => 'nullable|url|max:255',
         ]);
 
-        $data = $request->only(['nombre', 'paterno', 'materno', 'cargo', 'biografia', 'correo', 'telefono']);
+        $data = $request->only([ 'nombre','paterno', 'materno','cargo','biografia','correo','telefono','youtube','facebook',]);
         $data['fecha_registro'] = now();
 
         if ($request->hasFile('foto')) {
@@ -58,9 +60,11 @@ class CronistaController extends Controller
             'cargo'     => 'required|string',
             'biografia' => 'required|string',
             'foto'      => 'nullable|image|max:2048',
+            'youtube'   => 'nullable|url|max:255',
+            'facebook'  => 'nullable|url|max:255',
         ]);
 
-        $data = $request->only(['nombre', 'paterno', 'materno', 'cargo', 'biografia', 'correo', 'telefono']);
+       $data = $request->only(['nombre','paterno','materno','cargo','biografia','correo','telefono','youtube','facebook',]);
         $data['fecha_actualizacion'] = now();
 
         if ($request->hasFile('foto')) {

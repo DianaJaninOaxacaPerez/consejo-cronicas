@@ -19,6 +19,8 @@ class Cronista extends Model
         'biografia',
         'correo',
         'telefono',
+        'youtube',
+        'facebook',
         'fecha_registro',
         'fecha_actualizacion',
     ];

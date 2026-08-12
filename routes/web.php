@@ -105,6 +105,12 @@ Route::get('/perfiles', function () {
     $cronistas = Cronista::orderBy('id_cronista')->get();
     return view('perfiles', compact('cronistas'));
 })->name('perfiles');
+Route::get('/plataformas', function () {
+    $cronistas = Cronista::orderBy('id_cronista')->get();
+
+    return view('plataformas', compact('cronistas'));
+})->name('plataformas');
+
 Route::get('/perfiles/{id}', function ($id) {
     $cronista = Cronista::findOrFail($id);
     return view('ver_perfiles', compact('cronista'));  // ← cambia aquí
@@ -142,19 +148,6 @@ Route::get('/videos/{id}', function ($id) {
     return view('ver_video', compact('video'));
 })->name('videos.show');
 
-Route::get('/plataformas', function (\Illuminate\Http\Request $request) {
-
-    $query = \App\Models\Plataforma::query();
-
-    if ($request->filled('q')) {
-        $query->where('nombre', 'like', '%'.$request->q.'%');
-    }
-
-    $plataformas = $query->orderBy('nombre')->get();
-
-    return view('plataformas', compact('plataformas'));
-
-})->name('plataformas');
 
 
 

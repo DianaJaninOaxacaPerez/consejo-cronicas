@@ -35,6 +35,21 @@
     <input type="text" name="telefono" class="form-control" value="{{ old('telefono') }}">
   </div>
   <div class="mb-3">
+  <label class="form-label">YouTube</label>
+  <input
+    type="url"
+    name="youtube"
+    class="form-control"
+    value="{{ old('youtube') }}"
+    placeholder="https://www.youtube.com/..."
+  >
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Facebook</label>
+  <input type="url" name="facebook" class="form-control" value="{{ old('facebook') }}" placeholder="https://www.facebook.com/...">
+</div>
+  <div class="mb-3">
     <label class="form-label">Foto</label>
     <input type="file" name="foto" class="form-control" accept="image/*">
   </div>

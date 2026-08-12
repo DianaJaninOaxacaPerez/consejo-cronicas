@@ -35,6 +35,28 @@
     <label class="form-label">Teléfono</label>
     <input type="text" name="telefono" class="form-control" value="{{ old('telefono', $cronista->telefono) }}">
   </div>
+
+  <div class="mb-3">
+  <label class="form-label">YouTube</label>
+  <input
+    type="url"
+    name="youtube"
+    class="form-control"
+    value="{{ old('youtube', $cronista->youtube) }}"
+    placeholder="https://www.youtube.com/..."
+  >
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Facebook</label>
+  <input
+    type="url"
+    name="facebook"
+    class="form-control"
+    value="{{ old('facebook', $cronista->facebook) }}"
+    placeholder="https://www.facebook.com/..."
+  >
+</div>
   @if($cronista->foto)
     <div class="mb-3">
       <img src="{{ Storage::url($cronista->foto) }}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;">
