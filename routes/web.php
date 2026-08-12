@@ -157,6 +157,8 @@ Route::get('/plataformas', function (\Illuminate\Http\Request $request) {
 })->name('plataformas');
 
 
+
+
 /*Rutas administrativas (back - Livewire Starter Kit*/
 /* Login */
 Route::get('/login', [AuthController::class, 'mostrarLogin'])->name('login');
@@ -189,6 +191,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('mesas', [\App\Http\Controllers\Admin\MesaController::class, 'index'])->name('mesas.index');
         Route::put('mesas/{mesa}', [\App\Http\Controllers\Admin\MesaController::class, 'update'])->name('mesas.update');
         Route::resource('registros-evento', \App\Http\Controllers\Admin\RegistroEventoController::class)->only(['index', 'destroy']);
+        
 
 
 
@@ -198,6 +201,10 @@ Route::middleware(['auth'])->group(function () {
 
 
 });
+Route::get('/evento', function () {
+    $urlPublica = route('evento.confirmar.form');
+    return view('evento', compact('urlPublica'));
+})->name('evento.qr');
 
 Route::get('/evento/confirmar', [\App\Http\Controllers\AsistenciaController::class, 'form'])->name('evento.confirmar.form');
 Route::post('/evento/confirmar', [\App\Http\Controllers\AsistenciaController::class, 'store'])->name('evento.confirmar.store');
