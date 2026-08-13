@@ -944,3 +944,24 @@ section {
     font-size:1.05rem;
     line-height:1.9;
 }
+/* =========================================
+   SCROLL DEL MENÚ LATERAL PÚBLICO
+   ========================================= */
+
+.sidebar-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 100vh;
+}
+.sidebar-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.sidebar-body::-webkit-scrollbar-track {
+    background: transparent;
+}

@@ -83,13 +83,27 @@
 
                 <div class="plataforma-botones">
 
-                    <a href="#" class="btn-youtube">
+                    @if($cronista->youtube)
+                     <a
+                        href="{{ $cronista->youtube }}"
+                        class="btn-youtube"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         YouTube
                     </a>
+                    @endif
 
-                    <a href="#" class="btn-facebook">
-                        Facebook
-                    </a>
+                    @if($cronista->facebook)
+                     <a
+                        href="{{ $cronista->facebook }}"
+                        class="btn-facebook"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                     Facebook
+                     </a>
+                    @endif
 
                 </div>
 

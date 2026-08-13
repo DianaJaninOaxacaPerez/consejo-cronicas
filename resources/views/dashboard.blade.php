@@ -46,6 +46,14 @@
         <h3><i class="fa-solid fa-users"></i> Perfiles</h3>
         <p>Gestiona al equipo del consejo.</p>
     </a>
+
+    <a href="{{ route('admin.plataformas.index') }}" class="dashboard-card">
+        <div class="dashboard-card-img">
+        <i class="fa-solid fa-share-nodes" style="font-size: 4rem; color: var(--a-color3);"></i>
+        </div>
+        <h3><i class="fa-solid fa-share-nodes"></i> Plataformas </h3>
+        <p>Consulta las redes sociales de los cronistas.</p>
+    </a>
     <a href="{{ route('admin.usuarios.index') }}" class="dashboard-card">
         <div class="dashboard-card-img"><img src="{{ asset('img/dashboard/usuarios.svg') }}" alt="Usuarios"></div>
         <h3><i class="fa-solid fa-user-shield"></i> Usuarios</h3>

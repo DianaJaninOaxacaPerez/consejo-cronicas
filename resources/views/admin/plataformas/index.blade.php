@@ -122,11 +122,6 @@
     <h2>Plataformas</h2>
     <p>Cronistas y sus redes</p>
   </div>
-
-  <a href="{{ route('admin.plataformas.create') }}" class="btn-agregar-galeria">
-    <span>＋</span>
-    Agregar plataforma
-  </a>
 </div>
 
 @if(session('success'))
@@ -154,40 +149,30 @@
 </form>
 
 <div class="plataforma-grid">
-  @forelse($plataformas as $plataforma)
+    @forelse($cronistas as $cronista)
     <div class="plataforma-card">
       <div class="plataforma-card-media">
         <img
-          src="{{ $plataforma->foto ? Storage::url($plataforma->foto) : asset('img/default-perfil.png') }}"
-          alt="{{ $plataforma->nombre }}"
+          src="{{ $cronista->foto ? Storage::url($cronista->foto) : asset('img/default-perfil.png') }}"
+          alt="{{ $cronista->nombre_completo }}"
         >
       </div>
       <div class="plataforma-card-body">
-        <h3>{{ $plataforma->nombre }}</h3>
-
+        <h3>{{ $cronista->nombre_completo }}</h3>
         <div class="plataforma-links">
-          @if($plataforma->youtube_url)
-            <a href="{{ $plataforma->youtube_url }}" target="_blank" class="link-youtube" title="YouTube">
+          @if($cronista->youtube)
+            <a href="{{ $cronista->youtube }}" target="_blank" rel="noopener noreferrer" class="link-youtube" title="YouTube" >
               <i class="fa-brands fa-youtube"></i>
             </a>
           @endif
-          @if($plataforma->facebook_url)
-            <a href="{{ $plataforma->facebook_url }}" target="_blank" class="link-facebook" title="Facebook">
+          @if($cronista->facebook)
+            <a href="{{ $cronista->facebook }}"  target="_blank"  rel="noopener noreferrer" class="link-facebook" title="Facebook">
               <i class="fa-brands fa-facebook-f"></i>
             </a>
           @endif
-          @if(!$plataforma->youtube_url && !$plataforma->facebook_url)
+          @if(!$cronista->youtube && !$cronista->facebook)
             <span class="sin-enlace">Sin enlaces registrados</span>
           @endif
-        </div>
-
-        <div class="acciones-galeria">
-          <a href="{{ route('admin.plataformas.edit', $plataforma) }}" class="btn-pill btn-editar-galeria">Editar</a>
-          <form action="{{ route('admin.plataformas.destroy', $plataforma) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar esta plataforma?');">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn-pill btn-borrar-galeria">Borrar</button>
-          </form>
         </div>
       </div>
     </div>
