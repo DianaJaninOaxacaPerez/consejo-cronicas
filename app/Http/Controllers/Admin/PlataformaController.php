@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Plataforma;
+use App\Models\Cronista;
 use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 
@@ -11,15 +11,20 @@ class PlataformaController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Plataforma::query();
+        $query = Cronista::query();
 
-        if ($request->filled('q')) {
-            $query->where('nombre', 'like', '%'.$request->q.'%');
-        }
+    if ($request->filled('q')) {
+        $query->where(function ($sub) use ($request) {
+            $sub->where('nombre', 'like', '%'.$request->q.'%')
+                ->orWhere('paterno', 'like', '%'.$request->q.'%')
+                ->orWhere('materno', 'like', '%'.$request->q.'%');
+        });
+    }
 
-        $plataformas = $query->orderBy('nombre')->get();
+    $cronistas = $query->orderBy('nombre')->get();
 
-        return view('admin.plataformas.index', compact('plataformas'));
+    return view('admin.plataformas.index', compact('cronistas'));
+
     }
 
     public function create()
