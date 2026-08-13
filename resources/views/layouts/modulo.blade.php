@@ -82,6 +82,11 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link opcion-menu-buscable" href="{{ route('plataformas') }}">
+          <i class="fa-solid fa-share-nodes"></i> Plataformas
+        </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link opcion-menu-buscable" href="{{ route('videos') }}">
           <i class="fa-solid fa-video"></i> Videos
           </a>
