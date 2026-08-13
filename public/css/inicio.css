@@ -116,6 +116,34 @@ body {
   display: none;
 }
 
+
+/* ══════════════════════════════
+   RESPONSIVE — Ancho intermedio (992px–1300px)
+   El menú completo aún se muestra, pero falta espacio:
+   se reduce el gap y se oculta el buscador para
+   proteger siempre el botón de "Iniciar sesión"
+══════════════════════════════ */
+@media (min-width: 992px) and (max-width: 1300px) {
+  .navbar .menu {
+    gap: 4px;
+  }
+
+  .navbar .menu .nav-link {
+    font-size: 0.85rem;
+    padding-left: .35rem !important;
+    padding-right: .35rem !important;
+  }
+
+  #navbar .search-box {
+    display: none; /* se oculta hasta que haya más espacio */
+  }
+}
+
+
+
+
+
+
 @media (max-width: 991.98px) {
   .mobile-topbar {
     display: flex;
@@ -203,11 +231,22 @@ body {
   text-transform: uppercase;
   text-align: center;
 }
-
+/*
+viejito
 .navbar .menu {
   gap: 10px;
 }
+*/
+.navbar .menu {
+  gap: 10px;
+  flex-wrap: nowrap;
+}
 
+.navbar .menu .nav-link {
+  white-space: nowrap;
+  padding-left: .5rem !important;
+  padding-right: .5rem !important;
+}
 .navbar .menu .nav-link {
   text-decoration: none;
   color: var(--color1) !important;
@@ -219,11 +258,19 @@ body {
 .navbar .menu .nav-link:focus {
   color: var(--color3) !important;
 }
-
+/*
+viejito 
 .navbar .nav-actions {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+*/
+.navbar .nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0; /* nunca se comprime */
 }
 
 #navbar .search-box {
@@ -235,7 +282,8 @@ body {
   border: 1px solid var(--color4);
   box-shadow: 0 4px 10px rgba(0,0,0,.05);
 }
-
+/*
+viejito 
 #navbar .search-box input {
   border: none;
   outline: none;
@@ -243,6 +291,22 @@ body {
   font-family: 'Poppins', sans-serif;
   width: 180px;
 }
+*/
+#navbar .search-box input {
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  font-family: 'Poppins', sans-serif;
+  width: 180px;
+  min-width: 0; /* permite que se encoja si hace falta */
+}
+
+#navbar .search-box {
+  /*se le agrego el min-width: 90px:*/
+  flex-shrink: 1; min-width: 90px;
+  min-width: 90px;
+}
+
 
 .navbar .btn-login {
   display: inline-block;
