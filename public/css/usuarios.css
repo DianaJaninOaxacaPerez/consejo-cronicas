@@ -318,3 +318,80 @@
 .btn-cancelar:hover {
     text-decoration: underline;
 }
+/* ==============================
+   GRID COMPACTO - TARJETAS USUARIOS
+   ============================== */
+
+.usuarios-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  max-width: 100%;
+}
+
+.usuarios-grid .feed-card {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  padding: 16px;
+  gap: 0;
+}
+
+.usuarios-grid .feed-card:hover {
+  transform: translateY(-3px);
+}
+
+.usuarios-grid .feed-info {
+  padding: 0;
+  width: 100%;
+}
+
+.usuarios-grid .feed-info .tag {
+  font-size: 0.65rem;
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
+
+.usuarios-grid .feed-info h3 {
+  font-size: 1rem;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.usuarios-grid .feed-info p {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  margin: 2px 0;
+  word-break: break-word;
+}
+
+.usuarios-grid .feed-actions {
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.usuarios-grid .feed-actions .btn-editar,
+.usuarios-grid .feed-actions .btn-borrar {
+  font-size: 0.72rem;
+  padding: 6px 12px;
+  flex: 1;
+  text-align: center;
+}
+
+/* Responsive: menos columnas en pantallas más chicas */
+@media (max-width: 1400px) {
+  .usuarios-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 1100px) {
+  .usuarios-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 800px) {
+  .usuarios-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 500px) {
+  .usuarios-grid { grid-template-columns: 1fr; }
+}
