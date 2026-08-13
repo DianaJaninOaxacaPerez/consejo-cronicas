@@ -21,7 +21,7 @@
     </a>
 
 </div>
-<div class="feed-container">
+<div class="feed-container cronistas-grid">
   @forelse($cronistas as $cronista)
     <div class="feed-card">
       <div class="feed-image">

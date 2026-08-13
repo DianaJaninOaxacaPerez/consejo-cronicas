@@ -98,3 +98,79 @@
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ==============================
+   GRID COMPACTO - TARJETAS PERFILES (CRONISTAS)
+   ============================== */
+
+.cronistas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 100%;
+}
+
+.cronistas-grid .feed-card {
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center;
+  padding: 20px;
+  gap: 0;
+}
+
+.cronistas-grid .feed-image {
+  flex: none;
+  max-width: 100%;
+  width: 140px;
+  margin-bottom: 14px;
+}
+
+.cronistas-grid .feed-image img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.cronistas-grid .feed-info {
+  padding: 0;
+  width: 100%;
+}
+
+.cronistas-grid .feed-info .tag {
+  font-size: 0.65rem;
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
+
+.cronistas-grid .feed-info h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+
+.cronistas-grid .feed-actions {
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cronistas-grid .feed-actions .btn-editar,
+.cronistas-grid .feed-actions .btn-borrar {
+  font-size: 0.72rem;
+  padding: 6px 14px;
+}
+
+/* Responsive */
+@media (max-width: 1300px) {
+  .cronistas-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .cronistas-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 550px) {
+  .cronistas-grid { grid-template-columns: 1fr; }
+}
