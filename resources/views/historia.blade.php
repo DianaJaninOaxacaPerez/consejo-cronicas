@@ -20,7 +20,7 @@
   <form method="GET" action="{{ route('historia') }}" class="filtros-bar">
 
       <details class="filtro-caja">
-          <summary>Por fechas de tal a tal</summary>
+          <summary>Por fechas</summary>
           <div class="filtro-panel">
               <label>Desde
                   <input type="date" name="desde" value="{{ request('desde') }}">
