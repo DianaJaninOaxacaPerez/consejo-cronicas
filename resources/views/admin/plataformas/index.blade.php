@@ -174,15 +174,6 @@
             <span class="sin-enlace">Sin enlaces registrados</span>
           @endif
         </div>
-
-        <div class="acciones-galeria">
-          <a href="{{ route('admin.plataformas.edit', $plataforma) }}" class="btn-pill btn-editar-galeria">Editar</a>
-          <form action="{{ route('admin.plataformas.destroy', $plataforma) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar esta plataforma?');">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn-pill btn-borrar-galeria">Borrar</button>
-          </form>
-        </div>
       </div>
     </div>
   @empty
