@@ -48,10 +48,12 @@
         </li>
         <li class="nav-item">
            <a class="nav-link opcion-menu-buscable {{ request()->routeIs('historia') ? 'active' : '' }}" href="{{ route('historia') }}">
+             <i class="fa-solid fa-landmark"></i> Historia
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link opcion-menu-buscable {{ request()->routeIs('cronicas') ? 'active' : '' }}" href="{{ route('cronicas') }}">
+            <i class="fa-solid fa-scroll"></i> Crónicas
           </a>
         </li>
         <li class="nav-item">
@@ -76,10 +78,12 @@
         </li>
         <li class="nav-item">
           <a class="nav-link opcion-menu-buscable {{ request()->routeIs('perfiles') ? 'active' : '' }}" href="{{ route('perfiles') }}">
+            <i class="fa-solid fa-users"></i> Perfiles
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link opcion-menu-buscable {{ request()->routeIs('plataformas') ? 'active' : '' }}" href="{{ route('plataformas') }}">
+             <i class="fa-solid fa-share-nodes"></i> Plataformas
         </a>
         </li>
         <li class="nav-item">
