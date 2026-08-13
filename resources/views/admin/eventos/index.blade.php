@@ -129,7 +129,7 @@
 
 </div>
 
-<div class="feed-container">
+<div class="feed-container eventos-grid">
   @forelse($eventos as $evento)
     <div class="feed-card">
       <div class="feed-image">
