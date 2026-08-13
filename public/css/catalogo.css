@@ -1040,3 +1040,58 @@
         flex-basis: 100%;
     }
 }
+
+/* ==============================
+   GRID COMPACTO - CRÓNICAS (ADMIN)
+   ============================== */
+
+.cronicas-grid-admin {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  max-width: 100%;
+}
+
+.cronica-card-admin .cronica-card__imagen-contenedor {
+  height: 200px;
+}
+
+.cronica-card-admin .cronica-card__contenido {
+  padding: 18px;
+}
+
+.cronica-card-admin .cronica-card__contenido h3 {
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+}
+
+.cronica-card-admin .cronica-card__contenido h4 {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.cronica-card-admin .cronica-card__resumen {
+  display: none;
+}
+
+.cronica-card-admin .cronica-card__fecha {
+  margin-bottom: 14px;
+}
+
+.cronica-card-admin .cronica-admin-acciones {
+  gap: 8px;
+}
+
+.cronica-card-admin .btn-admin-cronica {
+  font-size: 0.78rem;
+  padding: 7px 14px;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .cronicas-grid-admin { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 650px) {
+  .cronicas-grid-admin { grid-template-columns: 1fr; }
+}

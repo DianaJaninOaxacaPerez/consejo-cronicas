@@ -76,7 +76,7 @@
     </a>
 
 </div>
-<div class="feed-container">
+<div class="feed-container entrevistas-grid">
   @forelse($entrevistas as $entrevista)
     <div class="feed-card">
       <div class="feed-image">
