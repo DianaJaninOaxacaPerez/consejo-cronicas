@@ -1172,3 +1172,74 @@
 @media (max-width: 550px) {
   .feed-container.noticias-grid { grid-template-columns: 1fr; }
 }
+
+/* ==============================
+   GRID COMPACTO - HISTORIAS (ADMIN)
+   ============================== */
+
+.cards.historias-grid-admin {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.historias-grid-admin .historia-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.historias-grid-admin .historia-card img {
+  width: 100% !important;
+  height: 130px !important;
+  object-fit: cover !important;
+  border-radius: 10px;
+}
+
+.historias-grid-admin .card-content {
+  padding: 12px !important;
+}
+
+.historias-grid-admin .card-tag {
+  font-size: 0.65rem !important;
+  padding: 3px 10px !important;
+  margin-bottom: 6px !important;
+}
+
+.historias-grid-admin .historia-titulo {
+  font-size: 1rem !important;
+  margin-bottom: 6px !important;
+  line-height: 1.2;
+}
+
+.historias-grid-admin .card-content > p {
+  display: none;
+}
+
+.historias-grid-admin .card-content small {
+  font-size: 0.72rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.historias-grid-admin .feed-actions {
+  gap: 6px !important;
+  flex-wrap: wrap;
+}
+
+.historias-grid-admin .btn-editar,
+.historias-grid-admin .btn-borrar {
+  font-size: 0.7rem;
+  padding: 5px 12px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .cards.historias-grid-admin { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+}
+
+@media (max-width: 550px) {
+  .cards.historias-grid-admin { grid-template-columns: 1fr; }
+}

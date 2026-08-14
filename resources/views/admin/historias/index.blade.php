@@ -73,7 +73,7 @@
 
 </form>
 
-<div class="cards">
+<div class="cards historias-grid-admin">
   @forelse($historias as $historia)
     <div class="card historia-card">
       @if($historia->imagen)
