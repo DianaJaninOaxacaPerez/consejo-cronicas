@@ -30,7 +30,7 @@
   <input type="text" id="inputBusqueda" class="form-control" placeholder="Buscar por título...">
 </div>
 
-<div class="feed-container">
+<div class="feed-container noticias-grid">
   @forelse($noticias as $noticia)
     @php
       $rutaImagen = $noticia->imagen
